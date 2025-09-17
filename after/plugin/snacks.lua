@@ -70,7 +70,7 @@ map({"n", "t"}, "<leader>st", function() require("snacks").terminal() end, { des
 
 
 --#good
-map("n", "<leader>lg", function() require("snacks").lazygit() end, { desc = "Open Lazygit" })
+map("n", "<leader>Lg", function() require("snacks").lazygit() end, { desc = "Open Lazygit" })
 -- map("n", "<leader>Gb", function() require("snacks").picker.git_branches() end, { desc = "Git Branches" })
 --#Because I have it in telescope
 -- map("n", "<leader>Gs", function() require("snacks").picker.git_status() end, { desc = "Git Status" })
@@ -86,15 +86,16 @@ map("n", "<leader>Gl", function() require("snacks").picker.git_log() end, { desc
 
 -- CORRECTED VERSION
 -- What the heck is going on down here man 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
-  callback = function()
-    local snacks_toggle = require("snacks").toggle
-    -- These keymaps let you turn features on and off
-    snacks_toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-    snacks_toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-    snacks_toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-    snacks_toggle.diagnostics():map("<leader>ud")
-    snacks_toggle.dim():map("<leader>uD") -- Toggle the dimming effect
-  end,
-})
+-- # what even is this does it even work?
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "VeryLazy",
+--   callback = function()
+--     local snacks_toggle = require("snacks").toggle
+--     -- These keymaps let you turn features on and off
+--     snacks_toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+--     snacks_toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+--     snacks_toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+--     snacks_toggle.diagnostics():map("<leader>ud")
+--     snacks_toggle.dim():map("<leader>uD") -- Toggle the dimming effect
+--   end,
+-- })

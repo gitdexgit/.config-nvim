@@ -4,16 +4,16 @@ vim.g.toggleterm_loaded = true
 
 -- Define the function to set keymaps locally before using it
 local function set_terminal_keymaps()
-  local opts = { buffer = 0 } -- 0 means the current buffer
-  -- Exit terminal mode and go back to normal mode
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-  -- A more ergonomic way to exit terminal mode
-  vim.keymap.set('t', 'jjk', [[<C-\><C-n>]], opts)
-  -- Navigate between windows from the terminal
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+    local opts = { buffer = 0 } -- 0 means the current buffer
+    -- Exit terminal mode and go back to normal mode
+    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+    -- A more ergonomic way to exit terminal mode
+    vim.keymap.set('t', 'jjk', [[<C-\><C-n>]], opts)
+    -- Navigate between windows from the terminal
+    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
 end
 
 -- Main setup for the plugin

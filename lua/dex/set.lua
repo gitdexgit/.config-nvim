@@ -42,12 +42,17 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-
+vim.opt.listchars = 'tab:▸\\ ,trail:·,space:·,extends:»,precedes:«'
 
 -- Allow the mouse to be used in neovim
 vim.o.mouse = 'a'
 
 
+-- :set virtualedit=onemore: A popular setting. It allows the cursor to move one character past the end of the line. This is surprisingly useful.
+-- vim.opt.virtualedit = onemore
+
+-- :set virtualedit=all: Allows the cursor to move to any column on any line, even if it's completely empty.
+-- vim.opt.virtualedit = all
 
 
 

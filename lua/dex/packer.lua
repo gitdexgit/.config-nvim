@@ -13,131 +13,137 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.8',
+        'nvim-telescope/telescope.nvim', branch = 'master',
+        -- 'nvim-telescope/telescope.nvim', tag = '0.1.8',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- lua/plugins/rose-pine.lua
--- lua/plugins/rose-pine.lua
 
 use ({
     "rose-pine/neovim",
-    lazy = false, -- Load this theme on startup
-    priority = 1000, -- Make sure it loads before other plugins
-    name = "rose-pine",
+    -- lazy = false, -- Load this theme on startup
+    -- priority = 1000, -- Make sure it loads before other plugins
+    -- name = "rose-pine",
     config = function()
 require("rose-pine").setup({
-    variant = "auto", -- auto, main, moon, or dawn
-    dark_variant = "moon", -- main, moon, or dawn
-    dim_inactive_windows = false,
-    extend_background_behind_borders = true,
+    -- variant = "auto", -- auto, main, moon, or dawn
+    -- dark_variant = "moon", -- main, moon, or dawn
+    -- dim_inactive_windows = false,
+    -- extend_background_behind_borders = true,
 
-    enable = {
-        terminal = true,
-        legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-        migrations = true, -- Handle deprecated options automatically
-    },
+    -- enable = {
+    --     terminal = true,
+    --     legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+    --     migrations = true, -- Handle deprecated options automatically
+    -- },
 
+    disable_background = true,
     styles = {
-        bold = true,
-        italic = true,
-        transparency = false,
+        -- bold = true,
+        italic = false,
+        -- transparency = false,
     },
 
-    groups = {
-        border = "muted",
-        link = "iris",
-        panel = "surface",
+    -- groups = {
+    --     border = "muted",
+    --     link = "iris",
+    --     panel = "surface",
+    --
+    --     error = "love",
+    --     hint = "iris",
+    --     info = "foam",
+    --     note = "pine",
+    --     todo = "rose",
+    --     warn = "gold",
+    --
+    --     git_add = "foam",
+    --     git_change = "rose",
+    --     git_delete = "love",
+    --     git_dirty = "rose",
+    --     git_ignore = "muted",
+    --     git_merge = "iris",
+    --     git_rename = "pine",
+    --     git_stage = "iris",
+    --     git_text = "rose",
+    --     git_untracked = "subtle",
+    --
+    --     h1 = "iris",
+    --     h2 = "foam",
+    --     h3 = "rose",
+    --     h4 = "gold",
+    --     h5 = "pine",
+    --     h6 = "foam",
+    -- },
 
-        error = "love",
-        hint = "iris",
-        info = "foam",
-        note = "pine",
-        todo = "rose",
-        warn = "gold",
-
-        git_add = "foam",
-        git_change = "rose",
-        git_delete = "love",
-        git_dirty = "rose",
-        git_ignore = "muted",
-        git_merge = "iris",
-        git_rename = "pine",
-        git_stage = "iris",
-        git_text = "rose",
-        git_untracked = "subtle",
-
-        h1 = "iris",
-        h2 = "foam",
-        h3 = "rose",
-        h4 = "gold",
-        h5 = "pine",
-        h6 = "foam",
-    },
-
-    palette = {
-        -- This is where we override the core colors for a specific variant.
-        moon = {
-            -- 'base' is the main background color.
-            -- The default for moon is '#232136'.
-            -- Choose ONE of the lines below and uncomment it.
-
-            -- Option A: A slightly darker version of the original Moon background
-            -- base = '#1c1a2b',
-
-            -- Option B: A very dark, neutral gray (less purple)
-            base = '#121212',
-
-            -- Option C: Pure black (great for OLED screens)
-            -- base = '#000000',
-        },
-        -- Override the builtin palette per variant
-        -- moon = {
-        --     base = '#18191a',
-        --     overlay = '#363738',
-        -- },
-    },
+    -- palette = {
+    --     -- This is where we override the core colors for a specific variant.
+    --     moon = {
+    --         -- 'base' is the main background color.
+    --         -- The default for moon is '#232136'.
+    --         -- Choose ONE of the lines below and uncomment it.
+    --
+    --         -- Option A: A slightly darker version of the original Moon background
+    --         -- base = '#1c1a2b',
+    --
+    --         -- Option B: A very dark, neutral gray (less purple)
+    --         base = '#121212',
+    --
+    --         -- Option C: Pure black (great for OLED screens)
+    --         -- base = '#000000',
+    --     },
+    --     -- Override the builtin palette per variant
+    --     -- moon = {
+    --     --     base = '#18191a',
+    --     --     overlay = '#363738',
+    --     -- },
+    -- },
 
 	-- NOTE: Highlight groups are extended (merged) by default. Disable this
 	-- per group via `inherit = false`
-    highlight_groups = {
-        -- Comment = { fg = "foam" },
-        -- StatusLine = { fg = "love", bg = "love", blend = 15 },
-        -- VertSplit = { fg = "muted", bg = "muted" },
-        -- Visual = { fg = "base", bg = "text", inherit = false },
-    },
+    -- highlight_groups = {
+    --     -- Comment = { fg = "foam" },
+    --     -- StatusLine = { fg = "love", bg = "love", blend = 15 },
+    --     -- VertSplit = { fg = "muted", bg = "muted" },
+    --     -- Visual = { fg = "base", bg = "text", inherit = false },
+    -- },
 
-    before_highlight = function(group, highlight, palette)
-        -- Disable all undercurls
-        -- if highlight.undercurl then
-        --     highlight.undercurl = false
-        -- end
-        --
-        -- Change palette colour
-        -- if highlight.fg == palette.pine then
-        --     highlight.fg = palette.foam
-        -- end
-    end,
+    -- before_highlight = function(group, highlight, palette)
+    --     -- Disable all undercurls
+    --     -- if highlight.undercurl then
+    --     --     highlight.undercurl = false
+    --     -- end
+    --     --
+    --     -- Change palette colour
+    --     -- if highlight.fg == palette.pine then
+    --     --     highlight.fg = palette.foam
+    --     -- end
+    -- end,
 })
 
 -- vim.cmd("colorscheme rose-pine")
-vim.cmd("colorscheme rose-pine-main")
+-- vim.cmd("colorscheme rose-pine-main")
 -- vim.cmd("colorscheme rose-pine-moon")
 -- vim.cmd("colorscheme rose-pine-dawn")
     end
 })
 
 
-    use {
-        'folke/tokyonight.nvim',
-        -- lazy = false, -- Load this theme on startup
-        -- priority = 1000, -- Make sure it loads before other plugins
-        -- config = function()
-        --     -- This sets the colorscheme when the plugin is loaded
-        --     vim.cmd.colorscheme 'tokyonight'
-        -- end
-    }
+	-- use {
+	-- 	"folke/tokyonight.nvim",
+	-- 	config = function()
+	-- 		require("tokyonight").setup({
+	-- 			style = "moon",
+	-- 			transparent = true, -- tokyonight has a built-in option
+	-- 			styles = {
+	-- 				sidebars = "dark",
+	-- 				floats = "dark",
+	-- 			},
+	-- 		})
+	-- 		-- If you wanted to use tokyonight instead, you would call:
+	-- 		-- vim.cmd.colorscheme("tokyonight")
+	-- 	end
+	-- }
 
     use {"akinsho/toggleterm.nvim", tag = '*'}
 
@@ -156,6 +162,9 @@ use {
 
 
 use ('christoomey/vim-tmux-navigator')
+use ('tpope/vim-unimpaired')
+
+
 
 use {'tpope/vim-surround'}
 

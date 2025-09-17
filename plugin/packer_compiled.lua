@@ -150,7 +150,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
   neovim = {
-    config = { "\27LJ\2\n\v\0\3\3\0\0\0\1K\0\1\0°\6\1\0\5\0\20\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\v\0005\4\n\0=\4\f\3=\3\r\0024\3\0\0=\3\14\0023\3\15\0=\3\16\2B\0\2\0016\0\17\0009\0\18\0'\2\19\0B\0\2\1K\0\1\0\31colorscheme rose-pine-main\bcmd\bvim\21before_highlight\0\21highlight_groups\fpalette\tmoon\1\0\1\tmoon\0\1\0\1\tbase\f#121212\vgroups\1\0\25\14git_merge\tiris\tlink\tiris\ah6\tfoam\tinfo\tfoam\tnote\tpine\ah1\tiris\thint\tiris\18git_untracked\vsubtle\ah4\tgold\15git_ignore\nmuted\ah2\tfoam\ttodo\trose\fgit_add\tfoam\nerror\tlove\15git_rename\tpine\npanel\fsurface\vborder\nmuted\15git_delete\tlove\14git_dirty\trose\ah3\trose\ah5\tpine\rgit_text\trose\15git_change\trose\14git_stage\tiris\twarn\tgold\vstyles\1\0\3\17transparency\1\vitalic\2\tbold\2\venable\1\0\3\15migrations\2\22legacy_highlights\2\rterminal\2\1\0\n\17dark_variant\tmoon\21highlight_groups\0\21before_highlight\0\vstyles\0\fpalette\0\fvariant\tauto%extend_background_behind_borders\2\venable\0\25dim_inactive_windows\1\vgroups\0\nsetup\14rose-pine\frequire\0" },
+    config = { "\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/neovim",
     url = "https://github.com/rose-pine/neovim"
@@ -198,7 +198,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["nvim-window-picker"] = {
-    config = { "\27LJ\2\n÷\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\a\0005\4\5\0005\5\4\0=\5\6\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\17filter_rules\abo\1\0\1\abo\0\rfiletype\1\0\1\rfiletype\0\1\5\0\0\rNvimTree\vnotify\17snacks_notif\vpacker\1\0\2\thint\24floating-big-letter\17filter_rules\0\nsetup\18window-picker\frequire\0" },
+    config = { "\27LJ\2\n÷\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\a\0005\4\5\0005\5\4\0=\5\6\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\17filter_rules\abo\1\0\1\abo\0\rfiletype\1\0\1\rfiletype\0\1\5\0\0\rNvimTree\vnotify\17snacks_notif\vpacker\1\0\2\17filter_rules\0\thint\24floating-big-letter\nsetup\18window-picker\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/nvim-window-picker",
     url = "https://github.com/s1n7ax/nvim-window-picker"
@@ -233,11 +233,6 @@ _G.packer_plugins = {
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["tokyonight.nvim"] = {
-    loaded = true,
-    path = "/home/dex/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
-  },
   undotree = {
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/undotree",
@@ -257,18 +252,23 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
     url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
+  ["vim-unimpaired"] = {
+    loaded = true,
+    path = "/home/dex/.local/share/nvim/site/pack/packer/start/vim-unimpaired",
+    url = "https://github.com/tpope/vim-unimpaired"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-window-picker
-time([[Config for nvim-window-picker]], true)
-try_loadstring("\27LJ\2\n÷\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\a\0005\4\5\0005\5\4\0=\5\6\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\17filter_rules\abo\1\0\1\abo\0\rfiletype\1\0\1\rfiletype\0\1\5\0\0\rNvimTree\vnotify\17snacks_notif\vpacker\1\0\2\thint\24floating-big-letter\17filter_rules\0\nsetup\18window-picker\frequire\0", "config", "nvim-window-picker")
-time([[Config for nvim-window-picker]], false)
 -- Config for: neovim
 time([[Config for neovim]], true)
-try_loadstring("\27LJ\2\n\v\0\3\3\0\0\0\1K\0\1\0°\6\1\0\5\0\20\0\0256\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\v\0005\4\n\0=\4\f\3=\3\r\0024\3\0\0=\3\14\0023\3\15\0=\3\16\2B\0\2\0016\0\17\0009\0\18\0'\2\19\0B\0\2\1K\0\1\0\31colorscheme rose-pine-main\bcmd\bvim\21before_highlight\0\21highlight_groups\fpalette\tmoon\1\0\1\tmoon\0\1\0\1\tbase\f#121212\vgroups\1\0\25\14git_merge\tiris\tlink\tiris\ah6\tfoam\tinfo\tfoam\tnote\tpine\ah1\tiris\thint\tiris\18git_untracked\vsubtle\ah4\tgold\15git_ignore\nmuted\ah2\tfoam\ttodo\trose\fgit_add\tfoam\nerror\tlove\15git_rename\tpine\npanel\fsurface\vborder\nmuted\15git_delete\tlove\14git_dirty\trose\ah3\trose\ah5\tpine\rgit_text\trose\15git_change\trose\14git_stage\tiris\twarn\tgold\vstyles\1\0\3\17transparency\1\vitalic\2\tbold\2\venable\1\0\3\15migrations\2\22legacy_highlights\2\rterminal\2\1\0\n\17dark_variant\tmoon\21highlight_groups\0\21before_highlight\0\vstyles\0\fpalette\0\fvariant\tauto%extend_background_behind_borders\2\venable\0\25dim_inactive_windows\1\vgroups\0\nsetup\14rose-pine\frequire\0", "config", "neovim")
+try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0", "config", "neovim")
 time([[Config for neovim]], false)
+-- Config for: nvim-window-picker
+time([[Config for nvim-window-picker]], true)
+try_loadstring("\27LJ\2\n÷\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\a\0005\4\5\0005\5\4\0=\5\6\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\17filter_rules\abo\1\0\1\abo\0\rfiletype\1\0\1\rfiletype\0\1\5\0\0\rNvimTree\vnotify\17snacks_notif\vpacker\1\0\2\17filter_rules\0\thint\24floating-big-letter\nsetup\18window-picker\frequire\0", "config", "nvim-window-picker")
+time([[Config for nvim-window-picker]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

@@ -8,9 +8,35 @@ end
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
---
 -- Automatically handle Zsh command-line editing
 local zsh_edit_group = vim.api.nvim_create_augroup('ZshEdit', { clear = true })
+
+
+
+
+-- Create an autocommand group to organize our autocommands.
+local wrap_group = vim.api.nvim_create_augroup('WrapSettings', { clear = true })
+
+-- Enable wrap for specific file types (prose, text, etc.).
+vim.api.nvim_create_autocmd('FileType', {
+  group = wrap_group,
+  -- A list of file types where you want text to wrap.
+  pattern = {
+    'markdown',
+    'text',
+    'gitcommit',
+    'help',
+  },
+  callback = function()
+    vim.opt_local.wrap = true
+    -- Optional: You might also want different line breaking behavior for text.
+    -- vim.opt_local.linebreak = true
+  end,
+  desc = 'Enable wrap for text-based filetypes.',
+})
+
+
+
 
 -- Rule 1: When we enter a temporary Zsh buffer, mark it as disposable.
 -- 'bufhidden=wipe' tells Neovim to completely erase the buffer from memory

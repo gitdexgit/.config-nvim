@@ -8,12 +8,16 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
 
 vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+---just use freaking c-f and c-b
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 --# I don't use this as much but I should try it out it's cool it indents stuff 
 vim.keymap.set("n", "=ap", "ma=ap'a")
+
+--# why not ? I don't need c-y I have capslock and shit lol
+vim.keymap.set("n", "<c-y>", "ma=ap'a")
 --#Oh this how he restarts the Lsp Ah I see
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 
@@ -23,7 +27,15 @@ vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 -- greatest remap ever
 --# btw Side note after using it it works fine and it's nice... just make sure to like visually select first 
 --# the visual select is not mandatory but it makes it nicer
+--##update(W38 Wed, 17 at 06:53): The issue was because I had <leader>pv and when I hit <leader>p it waits a bit and that screws it off with the alignment.
+--##update a solution would be to just hit <leader>P yes it works even though it's <leader>p. or just make A-p easy man.
+--##update idk maybe I'm wrong and deleting anything related to pv pf .... ect will keep the problem persistent idk man
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
+--# why Alt+p beause <leader>p I have to wait because of idk why. and it's funky it adds <space> for no reason
+--##btw(W38 Wed, 17 at 06:59) if you are thinking about making it like p & P just forget it it does't work. just go up or left with j or k and
+--##btw just A-p... this is already good enough I think.
+vim.keymap.set("x", "A-p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
@@ -37,11 +49,29 @@ vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<M-h>", "<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>")
-vim.keymap.set("n", "<M-H>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
-vim.keymap.set("n", "<M-l>", "<cmd>silent !tmux-sessionizer -s 1 --vsplit<CR>")
-vim.keymap.set("n", "<M-L>", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
+vim.keymap.set("n", "<C-t>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<A-h>", "<cmd>silent !tmux-sessionizer -s 0 --vsplit<CR>")
+vim.keymap.set("n", "<A-H>", "<cmd>silent !tmux neww tmux-sessionizer -s 0<CR>")
+vim.keymap.set("n", "<A-l>", "<cmd>silent !tmux-sessionizer -s 1 --vsplit<CR>")
+vim.keymap.set("n", "<A-L>", "<cmd>silent !tmux neww tmux-sessionizer -s 1<CR>")
+
+
+-- # This is how I deal with the stupid comments... do not make this <leader>o and <leader>O
+-- # why? because it will lag. and vim-unhinged [<Space> and ]<Scape> are useful but not what I want
+-- because they keep you in normal mode and also they make a new line like actual new line which is good
+-- but I just want a line bellow the comment or above the comment that is not commented that's all, but 
+-- also have the advantage of autocommenting. So gotta sacrifice A-o and A-O
+vim.keymap.set('n', '<A-o>', 'o<Esc>S', { desc = "Open new blank line below (Insert Mode)" })
+
+vim.keymap.set('n', '<A-O>', 'O<Esc>S', { desc = "Open new blank line above (Insert Mode)" })
+
+
+-- Remap Ctrl+f to scroll up
+vim.keymap.set("n", "<C-f>", "<C-f>zz")
+
+-- Remap Ctrl+b to scroll down
+vim.keymap.set("n", "<C-b>", "<C-b>zz")
+
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -137,23 +167,44 @@ vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Move to left window', remap = t
 vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window', remap = true })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window', remap = true })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window', remap = true })
+
+
 -- vim.keymap.set('n', '<C-.>', '<C-w>>', { desc = 'Move to right window', remap = true })
 -- vim.keymap.set('n', '<C-,>', '<C-w><', { desc = 'Move to right window', remap = true })
 
 -- yeah this fixes it on termux just freaking have this right... and btw hoold space for numbers and it works out lok
-vim.keymap.set('n', '<leader>.', '<C-w>>', { desc = 'Move to right window', remap = true })
-vim.keymap.set('n', '<leader>,', '<C-w><', { desc = 'Move to right window', remap = true })
+vim.keymap.set('n', '<leader>.', '5<C-w>>', { desc = 'Move to right window', remap = true })
+vim.keymap.set('n', '<leader>,', '5<C-w><', { desc = 'Move to right window', remap = true })
 
 vim.keymap.set('n', '<leader>=', '5<C-w>+', { desc = 'Increase window height by 5' })
 vim.keymap.set('n', '<leader>-', '5<C-w>-', { desc = 'Decrease window height by 5' })
 vim.keymap.set('n', '<leader>+', '<Cmd>wincmd =<CR>', { desc = 'Decrease window height by 5' })
 
+--# this is really useful isn't it
+vim.keymap.set('n', '<C-L>', '20zl', { desc = "I don't want to hit shift " })
+vim.keymap.set('n', '<C-H>', '20zh', { desc = 'I don\'t want to hit shift' })
 -- Easier tab navigation
 -- vim.keymap.set('n', '<Tab>', '<cmd>tabnext<CR>', { desc = 'Go to next tab' })
 -- vim.keymap.set('n', '<S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Go to previous tab' })
 
 
+vim.keymap.set('n', '<leader>zh', 'zH', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<leader>zl', 'zL', { desc = "I don't want to hit shift " })
 
+--# wow this works well with my freaking capslock I just hit ctrl+capslock and hjkl hehehe
+vim.keymap.set('n', '<C-right>', '20zl', { desc = "I don't want to hit shift " })
+vim.keymap.set('n', '<C-left>', '20zh', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<C-down>', '<c-e>', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<C-up>', '<c-y>', { desc = 'I don\'t want to hit shift' })
+
+
+
+
+-- OPTIONAL: Mappings for line-by-line scrolling without moving the cursor
+-- If you find Ctrl-E and Ctrl-Y easy to press, you don't need these.
+-- But if you want a leader-based alternative:
+vim.keymap.set('n', '<leader>se', '<C-e>', { desc = 'Scroll Down (like C-e)' })
+vim.keymap.set('n', '<leader>sy', '<C-y>', { desc = 'Scroll Up (like C-y)' })
 --# This thing I added and I'm not sure why... maybe when I'm in wrap mode. but does this even work
 --# I'm not sure to be honest when it's off it's fine dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 -- vim.keymap.set("n", "gJ", "mzgJ`z")
@@ -167,3 +218,9 @@ end, { desc = "Reload Luasnip snippets" })
 
 vim.keymap.set('n', '<leader>cwd', '<Cmd>cd %:h<CR>', { desc = 'Decrease window height by 5' })
 
+
+-- just screwing with this I don't like `X` it makes me hit shift+x and I do mainly use x so you know
+-- trying to be consistent and in terminal backspace in normal mode actually is backspace so i'm liking it
+-- In your init.lua
+-- Make Backspace delete the character to the left in Normal mode
+vim.keymap.set('n', '<BS>', 'X', { noremap = true, silent = true })
