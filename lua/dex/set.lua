@@ -42,6 +42,11 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- ADD THESE TWO LINES HERE
+vim.opt.timeoutlen = 650 -- Time in ms to wait for a mapped sequence to complete
+-- vim.opt.ttimeoutlen = 10  -- Time in ms to wait for a key code sequence
+
+
 vim.opt.listchars = 'tab:▸\\ ,trail:·,space:·,extends:»,precedes:«'
 
 -- Allow the mouse to be used in neovim
@@ -53,19 +58,4 @@ vim.o.mouse = 'a'
 
 -- :set virtualedit=all: Allows the cursor to move to any column on any line, even if it's completely empty.
 -- vim.opt.virtualedit = all
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

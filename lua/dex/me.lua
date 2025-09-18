@@ -125,3 +125,9 @@ end, { noremap = true, silent = true, desc = "Open Alacritty in current file's d
 
 
 
+--# idk didn't work so I put them here for now 
+--# I added this for fun just testing things out 
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { silent = true })
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { silent = true })
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { silent = true })
+

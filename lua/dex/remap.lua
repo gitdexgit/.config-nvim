@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mpleader = " "
 --# <leader>pv is in neo-tree it brings a neo-tree float. because :Ex is stupid with jumplist 
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -13,13 +13,22 @@ vim.keymap.set("n", "J", "mzJ`z")
 -- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+--##dummy oh the =ap is for indentation with that indentation plugin conform or sometihng learn that
 --# I don't use this as much but I should try it out it's cool it indents stuff 
 vim.keymap.set("n", "=ap", "ma=ap'a")
 
 --# why not ? I don't need c-y I have capslock and shit lol
-vim.keymap.set("n", "<c-y>", "ma=ap'a")
+vim.keymap.set("n", "<c-i>", "<C-i>zz")
+vim.keymap.set("n", "<c-o>", "<C-o>zz")
+
+vim.keymap.set("n", "<A-i>", "ma=ap'a")
+
+
 --#Oh this how he restarts the Lsp Ah I see
 vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
+
+
+
 
 --# Mr.Prime has this <leader>vwm but it require("vim-with-me") and I don't know what's this? and 
 --# I don't care tbh maybe it's a twitch things ? gotta maybe watch old vids or twitch live stream to know tbh I don't care
@@ -30,16 +39,21 @@ vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 --##update(W38 Wed, 17 at 06:53): The issue was because I had <leader>pv and when I hit <leader>p it waits a bit and that screws it off with the alignment.
 --##update a solution would be to just hit <leader>P yes it works even though it's <leader>p. or just make A-p easy man.
 --##update idk maybe I'm wrong and deleting anything related to pv pf .... ect will keep the problem persistent idk man
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- vim.keymap.set("x", "<leader>p", [["_dP]])
+
 
 --# why Alt+p beause <leader>p I have to wait because of idk why. and it's funky it adds <space> for no reason
 --##btw(W38 Wed, 17 at 06:59) if you are thinking about making it like p & P just forget it it does't work. just go up or left with j or k and
 --##btw just A-p... this is already good enough I think.
 vim.keymap.set("x", "A-p", [["_dP]])
+-- vim.keymap.set("x", "<leader>p.", "\"_dP")
+vim.keymap.set("x", "<leader>p", "\"_dP")
+-- vim.keymap.set("x", "<leader>p;", "\"_dP")
+--# why Alt+p beause <leader>p I have to wait because of idk why. and it's funky it adds <space> for no reason
+--##btw(W38 Wed, 17 at 06:59) if you are thinking about making it like p & P just forget it it does't work. just go up or left with j or k and
+--##btw just A-p... this is already good enough I think.
+-- vim.keymap.set("x", "A-p", [["_dP]])
 
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
 
@@ -68,9 +82,11 @@ vim.keymap.set('n', '<A-O>', 'O<Esc>S', { desc = "Open new blank line above (Ins
 
 -- Remap Ctrl+f to scroll up
 vim.keymap.set("n", "<C-f>", "<C-f>zz")
+vim.keymap.set("n", "<A-j>", "<C-f>zz")
 
 -- Remap Ctrl+b to scroll down
 vim.keymap.set("n", "<C-b>", "<C-b>zz")
+vim.keymap.set("n", "<A-k>", "<C-b>zz")
 
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -118,11 +134,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ef", function()
     require("conform").format({ bufnr = 0 })
 end)
-
---# I added this for fun just testing things out 
-vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { silent = true })
-vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { silent = true })
-vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { silent = true })
 
 
 -- ---- these are mine ---

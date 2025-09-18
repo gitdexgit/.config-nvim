@@ -150,7 +150,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
   neovim = {
-    config = { "\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0" },
+    config = { "\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\vstyles\0\23disable_background\2\nsetup\14rose-pine\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/neovim",
     url = "https://github.com/rose-pine/neovim"
@@ -218,10 +218,25 @@ _G.packer_plugins = {
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["project.nvim"] = {
+    loaded = true,
+    path = "/home/dex/.local/share/nvim/site/pack/packer/start/project.nvim",
+    url = "https://github.com/ahmedkhalf/project.nvim"
+  },
   ["snacks.nvim"] = {
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/snacks.nvim",
     url = "https://github.com/folke/snacks.nvim"
+  },
+  ["telescope-file-browser.nvim"] = {
+    loaded = true,
+    path = "/home/dex/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
+    url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/home/dex/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -263,7 +278,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: neovim
 time([[Config for neovim]], true)
-try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0", "config", "neovim")
+try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\vstyles\0\23disable_background\2\nsetup\14rose-pine\frequire\0", "config", "neovim")
 time([[Config for neovim]], false)
 -- Config for: nvim-window-picker
 time([[Config for nvim-window-picker]], true)

@@ -128,4 +128,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 
-
+-- idk for some reason when it's in remap.lua it's not loading well so I'll put it in here
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
