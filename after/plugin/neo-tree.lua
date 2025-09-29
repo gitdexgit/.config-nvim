@@ -2,10 +2,10 @@ require("neo-tree").setup({
 
     --- you can have other settings here ---
 
-
-  source_selector = {
+  source_selector ={  -- type: ignore
     winbar = true, -- This is the crucial line to enable the tabs at the top
     statusline = false, -- We don't need it in both places
+    truncation_character = "…", -- Character to use when truncating tab names
     sources = {
       -- This table configures the individual tabs.
       -- The order here determines the order they appear in.
@@ -223,7 +223,7 @@ vim.api.nvim_create_user_command('NeotreeFocusSidebarHere',
   function()
     require('neo-tree.command').execute({
       source = 'filesystem',
-      position = 'right', -- Explicitly set the position!
+      position = 'left', -- Explicitly set the position!
       -- toggle = true,
       dir = vim.fn.expand('%:p:h')
     })
@@ -239,7 +239,7 @@ vim.api.nvim_create_user_command('NeotreeFocusSidebarFocus',
   function()
     require('neo-tree.command').execute({
       source = 'filesystem',
-      position = 'right', -- Explicitly set the position!
+      position = 'left', -- Explicitly set the position!
       -- toggle = true,
       -- dir = vim.fn.expand('%:p:h')
     })
@@ -253,7 +253,7 @@ vim.api.nvim_create_user_command('NeotreeFocusSidebarFocus',
   function()
     require('neo-tree.command').execute({
       source = 'filesystem',
-      position = 'right', -- Explicitly set the position!
+      position = 'left', -- Explicitly set the position!
       -- toggle = true,
       dir = vim.fn.expand('%:p:h')
     })
@@ -342,7 +342,7 @@ vim.keymap.set("n", "<leader>pW", vim.cmd.NeotreeNetrwHere)
 vim.keymap.set('n', '<leader>nf', function()
   require('neo-tree.command').execute({
       source = 'filesystem',
-      position = 'right', -- Explicitly set the position!
+      position = 'left', -- Explicitly set the position!
       -- toggle = true,
       -- dir = vim.fn.expand('%:p:h')
   })
@@ -360,7 +360,7 @@ vim.keymap.set('n', '<leader>ns', function()
   require('neo-tree.command').execute({
     source = "document_symbols",
     -- toggle = true,
-    position = "right" -- This achieves the layout you liked in the screenshot
+    position = "left" -- This achieves the layout you liked in the screenshot
   })
 end, { desc = "Neo-tree: Toggle document symbols" })
 
@@ -369,7 +369,7 @@ vim.keymap.set('n', '<leader>nb', function()
   require('neo-tree.command').execute({
     source = "buffers",
     -- toggle = true,
-    position = "right" -- This achieves the layout you liked in the screenshot
+    position = "left" -- This achieves the layout you liked in the screenshot
   })
 end, { desc = "Neo-tree: Toggle Buffers" })
 
@@ -378,7 +378,7 @@ vim.keymap.set('n', '<leader>ng', function()
   require('neo-tree.command').execute({
     source = "git_status",
     -- toggle = true,
-    position = "right", -- This achieves the layout you liked in the screenshot
+    position = "left", -- This achieves the layout you liked in the screenshot
     dir = vim.fn.expand('%:p:h')
   })
 end, { desc = "Neo-tree: Toggle git_status" })

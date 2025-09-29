@@ -1,12 +1,14 @@
 -- ~/.config/nvim/lua/user/lsp.lua
 
+print("--- LOADING LSP CONFIG ---")
+
 -- This is the core setup for your LSP configuration.
 -- It should be called after your LSP-related plugins have been loaded.
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local navic = require("nvim-navic")
-local navbuddy = require("nvim-navbuddy")
+local navbundy = require("nvim-navbuddy")
 
 -- This function gets called for every language server that attaches to a buffer
 local on_attach = function(client, bufnr)
@@ -57,10 +59,17 @@ cmp.setup({
         -- { name = "copilot", group_index = 2 }, -- IMPORTANT: Uncomment this ONLY if you have the Copilot plugin
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
-    }, {
-        { name = 'buffer' },
-    })
-})
+        {name = "lazydev",
+        group_index = 0,
+        },
+    },
+        {
+            { name = 'buffer' },
+            { name = "path"},
+        }
+    )
+}
+)
 
 -- Setup for vim diagnostics (the little icons and popups that show errors)
 vim.diagnostic.config({
@@ -86,52 +95,34 @@ require("mason").setup({
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require("mason-lspconfig").setup({
-    -- A list of servers to automatically install if they're not already installed
+    -- This ensures your servers are installed
     ensure_installed = {
-        "lua_ls",
-        "rust_analyzer",
-        "gopls",
-        "pyright",
-        "clangd", 
+        "lua_ls", "pyright", "rust_analyzer", "gopls", "clangd",
     },
-    -- This is where you configure each LSP server
+    -- This is the single source of truth for setting up servers.
     handlers = {
-        -- This is the default handler for servers that don't have a specific setup below
+        -- This is the default handler for all servers.
+        -- It guarantees your on_attach is used for pyright, rust_analyzer, etc.
         function(server_name)
-            require("lspconfig")[server_name].setup {
+            require("lspconfig")[server_name].setup({
                 capabilities = lsp_capabilities,
-                on_attach = on_attach, -- Use our central on_attach function
-            }
+                on_attach = on_attach, 
+            })
         end,
 
-        -- Custom setup for the Lua language server
+        -- Special override for lua_ls to add custom settings
         ["lua_ls"] = function()
-            require("lspconfig").lua_ls.setup {
+            require("lspconfig").lua_ls.setup({
                 capabilities = lsp_capabilities,
-                on_attach = on_attach, -- Also use our central on_attach function
+                on_attach = on_attach,
                 settings = {
-                    Lua = {
-                        runtime = { version = 'LuaJIT' },
-                        diagnostics = {
-                            globals = { 'vim' },
-                        },
-                        workspace = {
-                            checkThirdParty = false,
-                            library = {
-                                vim.env.VIMRUNTIME
-                                -- Depending on the usage, you might want to add additional paths
-                                -- here.
-                                -- '${3rd}/luv/library'
-                                -- '${3rd}/busted/library'
-                            }
-                        },
-                        telemetry = { enable = false },
-                    },
-                },
-            }
+                    Lua = { diagnostics = { globals = { 'vim' } } }
+                }
+            })
         end,
-    },
+    }
 })
+
 
 require("conform").setup({
     formatters_by_ft = {

@@ -1,101 +1,118 @@
--- This file contains all keymaps and setup for snacks.nvim
+-- This is the single, clean source of truth for your snacks.nvim runtime setup.
+-- It runs automatically after all your Packer plugins have been loaded.
 
--- A helper function to make setting keymaps easier
-local function map(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.noremap = true
-  opts.silent = true
-  vim.keymap.set(mode, lhs, rhs, opts)
+-- Safety check to ensure Snacks is available before we try to use it.
+local status_ok, Snacks = pcall(require, "snacks")
+if not status_ok then
+    -- If snacks isn't loaded for some reason, we stop here to avoid errors.
+    return
 end
 
-
--- At the BOTTOM of snacks.lua, after all your other maps:
-
---# doens't work
--- require("snacks").setup({
---   picker = {
---     keys = {
---       i = {
---         ["<C-p>"] = require("snacks.picker").select_vertical,
---         ["<C-j>"] = function(state)
---           require("snacks.picker").scroll_preview(1, state)
---         end,
---         ["<C-k>"] = function(state)
---           require("snacks.picker").scroll_preview(-1, state)
---         end,
---       },
---       n = {
---         ["<C-p>"] = require("snacks.picker").select_vertical,
---       },
---     },
---   },
--- })
+-- A single helper function to make setting keymaps cleaner
+local map = vim.keymap.set
 
 
 
------------------------------------------------------
--- PICKERS (The main feature)
------------------------------------------------------
--- These are for finding things across your project
-
--- why use this when I have like telescope lol
--- map("n", "<leader>ff", function() require("snacks").picker.files() end, { desc = "Find Files" })
 
 
---for now let's screw around with s I like f more but f is used but you know  we got B which is good 
+-- Override vim.print so `:= { my_table = 123 }` uses the pretty inspector
+if vim.fn.has("nvim-0.11") == 1 then
+    vim._print = function(_, ...) _G.dd(...) end
+else
+    vim.print = _G.dd
+end
 
--- because of telescope no need for this... mainly because I can't do what telescope does... mainly with the hotkeys and keybinds
--- map("n", "<leader>sb", function() require("snacks").picker.buffers() end, { desc = "Find Buffers" })
--- map("n", "<leader>fb", function() require("snacks").picker.buffers() end, { desc = "Find Buffers" })
+--#OK this is the best
+-- ===================================================================
+-- 2. Create On-the-Fly Toggle Mappings
+-- ===================================================================
+-- These let you turn common editor settings on and off with notifications.
 
-
--- map("n", "<leader>fg", function() require("snacks").picker.git_files() end, { desc = "Find Git Files" })
--- map("n", "<leader>fr", function() require("snacks").picker.recent() end, { desc = "Find Recent Files" })
--- map("n", "<leader>sw", function() require("snacks").picker.grep_word() end, { desc = "Grep for Word Under Cursor" })
--- map("n", "<leader>sg", function() require("snacks").picker.grep() end, { desc = "Grep (Live)" })
--- map("n", "<leader>sH", function() require("snacks").picker.highlights() end, { desc = "Search Highlight Groups" })
---
--- -----------------------------------------------------
--- -- INTERACTIVE TOOLS
--- -----------------------------------------------------
-map("n", "<leader>se", function() require("snacks").explorer() end, { desc = "File Explorer (Snacks)" })
-map("n", "<leader>sz", function() require("snacks").zen() end, { desc = "Toggle Zen Mode" })
-map({"n", "t"}, "<leader>st", function() require("snacks").terminal() end, { desc = "Toggle Floating Terminal" })
--- map({"n", "t"}, "<c-_>", function() require("snacks").terminal() end, { desc = "Toggle Floating Terminal" })
---
--- -----------------------------------------------------
--- -- GIT INTEGRATION
--- -----------------------------------------------------
--- -- Make sure you have 'lazygit' installed on your system for this to work
+map({ "n", "t" }, "g]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Snacks: Next Reference" })
+map({ "n", "t" }, "g[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Snacks: Prev Reference" })
 
 
---#good
-map("n", "<leader>Lg", function() require("snacks").lazygit() end, { desc = "Open Lazygit" })
--- map("n", "<leader>Gb", function() require("snacks").picker.git_branches() end, { desc = "Git Branches" })
---#Because I have it in telescope
--- map("n", "<leader>Gs", function() require("snacks").picker.git_status() end, { desc = "Git Status" })
-map("n", "<leader>Gl", function() require("snacks").picker.git_log() end, { desc = "Git Log" })
+-- # this is so nice change from relative number to number really like it 
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
+
+--# I already have  the <leader>w but I guess naming it <leader>uw is probably better 
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+
+--# really fun and interesting kinda like zen but is it useful? I'm not sure but it's there
+Snacks.toggle.dim():map("<leader>uD") -- Toggles the dimming effect for focus
+
+
+--##--- Spelling --------
+--# really nice to check English comments? spelling? could be really good for obsidian
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+--###---To use <leader>us well you can pair it with these native nvim stuff:
+--# ]s - Jump to the next misspelled word.
+--# [s - Jump to the previous misspelled word.
+--# z= - This is the most common command. It opens a list of numbered suggestions. Simply type the number of the correct word and press Enter.
+--# zg - This tells Vim "this word is good" and adds it to your personal dictionary (g for "good"). The word will no longer be marked as a mistake.
+--# Awesome stuff right?
+--###---END
+--##---END
 
 
 
------------------------------------------------------
--- TOGGLES (The init function logic)
------------------------------------------------------
--- This autocommand waits until all plugins are loaded ("VeryLazy" event)
--- before setting up the toggle keymaps. This is best practice.
+--# this is really sick to disable and enable diagnostics on the left really sick
+Snacks.toggle.diagnostics():map("<leader>ud")
 
--- CORRECTED VERSION
--- What the heck is going on down here man 
--- # what even is this does it even work?
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "VeryLazy",
---   callback = function()
---     local snacks_toggle = require("snacks").toggle
---     -- These keymaps let you turn features on and off
---     snacks_toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
---     snacks_toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
---     snacks_toggle.option("spell", { name = "Spelling" }):map("<leader>us")
---     snacks_toggle.diagnostics():map("<leader>ud")
---     snacks_toggle.dim():map("<leader>uD") -- Toggle the dimming effect
---   end,
--- })
+--# really sick ident guides I love them this is what I need 
+Snacks.toggle.indent():map("<leader>ui") -- Toggles indent guides
+
+-- ===================================================================
+-- 3. Your Chosen Keymaps for Snacks Features
+-- ===================================================================
+-- These are the keymaps you decided to keep.
+
+-- Grep (as a good backup to Telescope)
+map("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Snacks: Grep (Live)" })
+map({"n", "v"}, "<leader>sG", function() Snacks.picker.grep_word() end, { desc = "Snacks: Grep for Word Under Cursor" })
+
+-- Explorer (as a backup to neo-tree)
+map("n", "<leader>se", function() Snacks.explorer() end, { desc = "Snacks: File Explorer" })
+
+-- Zen Mode
+map({ "n", "v" }, "<leader>zen", function() Snacks.zen() end, { desc = "Snacks: Toggle Zen Mode" })
+
+-- Scratch Buffers
+map("n", "<leader>>", function() Snacks.scratch() end, { desc = "Snacks: Toggle Scratch Buffer" })
+map("n", "<leader>S", function() Snacks.scratch.select() end, { desc = "Snacks: Select Scratch Buffer" })
+
+-- Buffer Delete
+-- This is fine it works well with <Leader>B... it doesn't way just deletes this buffer and even removes it from jump list I believe sick 
+map("n", "<leader>bd",function() Snacks.bufdelete() end, { desc = "Snacks: Buffer Delete" })
+
+
+
+-- V V V ADD THIS NEW KEYMAP V V V
+-- Manually open the dashboard in a float
+-- map("n", "<leader>D", function() Snacks.dashboard() end, { desc = "Snacks: Open Dashboard" })
+-- ^ ^ ^ END OF THE NEW KEYMAP ^ ^ ^
+-- Git Integration
+
+
+--# just testing which one I like 
+map("n", "<leader>GG", function() Snacks.lazygit() end, { desc = "Snacks: Lazygit" })
+map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Snacks: Lazygit" })
+map("n", "<leader>Lg", function() Snacks.lazygit() end, { desc = "Snacks: Lazygit" })
+
+map({ "n", "v" }, "<leader>GB", function() Snacks.gitbrowse() end, { desc = "Snacks: Git Browse" })
+map("n", "<leader>Gl", function() Snacks.picker.git_log() end, { desc = "Snacks: Git Log" })
+map("n", "<leader>gl", function() Snacks.git.blame_line() end, { desc = "Git: Blame Line" })
+map("n", "<leader>GGb", function() Snacks.picker.git_branches() end, { desc = "Snacks: Git Branches" })
+map("n", "<leader>GGs", function() Snacks.picker.git_status() end, { desc = "Snacks: Git Status" })
+
+-- ===================================================================
+-- Final Confirmation
+-- ===================================================================
+-- A small notification to let you know this file was loaded correctly.
+-- vim.notify("Snacks.nvim keymaps and setup loaded successfully!", vim.log.levels.INFO, { title = "Snacks" })
+
+
+
+-- V V V ADD THIS NEW KEYMAP V V V
+map("n", "<leader>RN", function() Snacks.rename.rename_file() end, { desc = "Snacks: Rename File" })
+-- ^ ^ ^ END OF THE NEW KEYMAP ^ ^ ^

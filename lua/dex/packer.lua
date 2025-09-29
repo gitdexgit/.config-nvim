@@ -19,18 +19,52 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
 
     use {
       "nvim-telescope/telescope-file-browser.nvim",
       requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     }
 
+    use {
+        "debugloop/telescope-undo.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    }
+
+
+    use('petertriho/nvim-scrollbar')
+
+    use {'kevinhwang91/nvim-hlslens'}
+
 
     use {
       "ahmedkhalf/project.nvim",
     }
 
+    -- in your packer startup function
+    use {
+        "folke/lazydev.nvim",
+        ft = "lua", -- Only load on lua files
+        config = function()
+            require("lazydev").setup({
+                -- Your options go here
+                -- See the configuration section for more details
+                library = {
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    -- You can add other libraries here, like wezterm-types if you use it
+                    -- { path = "wezterm-types", mods = { "wezterm" } },
+                }
+            })
+        end
+    }
+
+
+      -- The notification plugin
+      use {
+        'rcarriga/nvim-notify',
+      }
 
 
 use ({
@@ -206,54 +240,64 @@ use {'tpope/vim-surround'}
 
 -- /home/dex/.config/nvim/lua/dex/packer.lua
 
-    use {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        -- All configuration now goes inside the 'opts' table
-        opts = {
-            -- Visual Enhancements
-            scroll = { enabled = true },
-            indent = { enabled = true },
-            statuscolumn = { enabled = true },
-            dim = { enabled = true },
-            words = { enabled = true },
-            notifier = { enabled = true },
-            dashboard = { enabled = true },
+-- /home/dex/.config/nvim/lua/dex/packer.lua
 
-            -- Core Functionality
-            picker = { enabled = true },
-            input = { enabled = true },
-            explorer = { enabled = true },
-            terminal = { enabled = true },
-            zen = { enabled = true },
+-- In /home/dex/.config/nvim/lua/dex/packer.lua
 
-            -- Workflow Helpers
-            rename = { enabled = true },
-            bufdelete = { enabled = true },
-            gitbrowse = { enabled = true },
-            lazygit = { enabled = true },
-            scratch = { enabled = true },
-
-            -- Advanced/Specific
-            bigfile = { enabled = true },
-            quickfile = { enabled = true },
-
-            -- V V V --- THE FIX IS HERE --- V V V
-            -- Section 3: PREVENT the preview from disappearing
-            -- 'preview' is now INSIDE 'opts'
-            preview = {
-                min_width = 10,
-            },
-
-            -- Section 4: Your Custom Keymaps
-            -- 'keys' is now INSIDE 'opts'
-        },
-    }
-
-
-
-
+use {
+    "folke/snacks.nvim",
+    priority = 1000,
+    config = function()
+        require("snacks").setup({
+            -- dashboard = {
+                --     enabled = true,
+                --     -- V V V ADD THIS NEW 'preset' TABLE V V V
+                --     preset = {
+                    --         -- Override the default keymaps for the dashboard
+                    --         keys = {
+                        --             -- This tells the 'f' key to run Telescope's find_files
+                        --             { icon = " ", key = "f", desc = "Find File (Telescope)", action = ":Telescope find_files" },
+                        --             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+                        --             { icon = " ", key = "g", desc = "Find Text (Telescope)", action = ":Telescope live_grep" },
+                        --             { icon = " ", key = "r", desc = "Recent Files (Telescope)", action = ":Telescope oldfiles" },
+                        --             { icon = " ", key = "c", desc = "Config", action = ":e ~/.config/nvim" },
+                        --             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+                        --         },
+                        --     },
+                        --     -- ^ ^ ^ END OF THE NEW TABLE ^ ^ ^
+                        --     sections = {
+                            --         { section = "header" },
+                            --         { section = "keys", gap = 1, padding = 1 },
+                            --         {
+                                --             enabled = function()
+                                    --                 return vim.fn.finddir('.git', ';') ~= ''
+                                    --             end,
+                                    --             title = " Git Status",
+                                    --             icon = " ",
+                                    --             section = "terminal",
+                                    --             cmd = "git status --short --branch",
+                                    --             height = 5,
+                                    --             padding = 1,
+                                    --         },
+                                    --     },
+                                    -- },
+                                    -- Visuals
+                                    indent = { enabled = true },
+                                    statuscolumn = { enabled = true },
+                                    dim = { enabled = true },
+                                    words = { enabled = true },
+                                    -- Workflow
+                                    zen = { enabled = true },
+                                    bigfile = { enabled = true },
+                                    rename = { enabled = true },
+                                    bufdelete = { enabled = true },
+                                    gitbrowse = { enabled = true },
+                                    lazygit = { enabled = true },
+                                    scratch = { enabled = true },
+                                    input = { enabled = true }, -- Make sure this line is present and true
+                                })
+                            end,
+                        }
 
     use {
         's1n7ax/nvim-window-picker',
@@ -280,17 +324,42 @@ use {'tpope/vim-surround'}
       requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
 
+
     use {
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig"
     }
 
     use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+
     use('nvim-treesitter/playground')
+
     use('ThePrimeagen/harpoon')
+
     use('mbbill/undotree')
+
+    use("folke/trouble.nvim")
+
     use('tpope/vim-fugitive')
 
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup({
+                -- This ensures the signs appear automatically
+                signcolumn = true,
+                numhl = false, -- Let snacks.statuscolumn handle the line number highlighting
+                linehl = false,
+                word_diff = false,
+                -- This is just a nice-to-have, it lets you see the deleted lines
+                -- in a little popup when you are on a modified line.
+                on_attach = function(bufnr)
+                    vim.keymap.set('n', '<leader>gp', require('gitsigns').preview_hunk,
+                        { buffer = bufnr, desc = 'Git: Preview Hunk' })
+                end
+            })
+        end
+    }
 
     -- use {
     --     "andrewferrier/jsregexp.nvim",

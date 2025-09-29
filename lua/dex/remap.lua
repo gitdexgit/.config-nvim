@@ -1,4 +1,5 @@
-vim.g.mpleader = " "
+vim.g.mapleader = " "
+
 --# <leader>pv is in neo-tree it brings a neo-tree float. because :Ex is stupid with jumplist 
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -7,6 +8,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 --# i don't understand this <Plug>.... thing is this a lazynvim ? or is this in packer or what
 -- vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
 
+vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "J", "mzJ`z")
 ---just use freaking c-f and c-b
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
@@ -20,6 +22,10 @@ vim.keymap.set("n", "=ap", "ma=ap'a")
 --# why not ? I don't need c-y I have capslock and shit lol
 vim.keymap.set("n", "<c-i>", "<C-i>zz")
 vim.keymap.set("n", "<c-o>", "<C-o>zz")
+
+
+vim.keymap.set("n", "<A-s>", "<C-i>zz")
+vim.keymap.set("n", "<A-d>", "<C-o>zz")
 
 vim.keymap.set("n", "<A-i>", "ma=ap'a")
 
@@ -45,7 +51,7 @@ vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
 --# why Alt+p beause <leader>p I have to wait because of idk why. and it's funky it adds <space> for no reason
 --##btw(W38 Wed, 17 at 06:59) if you are thinking about making it like p & P just forget it it does't work. just go up or left with j or k and
 --##btw just A-p... this is already good enough I think.
-vim.keymap.set("x", "A-p", [["_dP]])
+-- vim.keymap.set("x", "A-p", [["_dP]])
 -- vim.keymap.set("x", "<leader>p.", "\"_dP")
 vim.keymap.set("x", "<leader>p", "\"_dP")
 -- vim.keymap.set("x", "<leader>p;", "\"_dP")
@@ -82,19 +88,19 @@ vim.keymap.set('n', '<A-O>', 'O<Esc>S', { desc = "Open new blank line above (Ins
 
 -- Remap Ctrl+f to scroll up
 vim.keymap.set("n", "<C-f>", "<C-f>zz")
-vim.keymap.set("n", "<A-j>", "<C-f>zz")
+vim.keymap.set("n", "<A-j>", "<C-d>zz")
+vim.keymap.set("v", "<A-j>", "<C-d>zz")
 
 -- Remap Ctrl+b to scroll down
 vim.keymap.set("n", "<C-b>", "<C-b>zz")
-vim.keymap.set("n", "<A-k>", "<C-b>zz")
+vim.keymap.set("n", "<A-k>", "<C-u>zz")
+vim.keymap.set("v", "<A-k>", "<C-u>zz")
 
-
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>cj", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<leader>ck", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 --# I don't know what this is for and I don't use it idk gotta see what is this for 
@@ -146,17 +152,7 @@ vim.keymap.set('i', '<C-k>', '<C-o>d$', {
   desc = "Delete from cursor to end of line"
 })
 
---# Just more ergonomic thing faster than d$ but you now maybe I should develop a way to hit those
---!@#$%^&*()_+ better and faster it's my fault... I have to make a keyd that will make me hit those easier around the middle of the keyboard not make a remap here but for now it is what it is I think
-vim.keymap.set('n', '<leader>K', 'd$', {
-  noremap = true,
-  silent = true,
-  desc = "Delete from cursor to end of line"
-})
-
 -- END---- these are mind END-----
-
-
 
 -- vim.keymap.set(
 --     "n",
@@ -193,7 +189,8 @@ vim.keymap.set('n', '<leader>+', '<Cmd>wincmd =<CR>', { desc = 'Decrease window 
 
 --# this is really useful isn't it
 vim.keymap.set('n', '<C-L>', '20zl', { desc = "I don't want to hit shift " })
-vim.keymap.set('n', '<C-H>', '20zh', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<A-S-L>', '20zl', { desc = "I don't want to hit shift " })
+vim.keymap.set('n', '<A-S-H>', '20zh', { desc = 'I don\'t want to hit shift' })
 -- Easier tab navigation
 -- vim.keymap.set('n', '<Tab>', '<cmd>tabnext<CR>', { desc = 'Go to next tab' })
 -- vim.keymap.set('n', '<S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Go to previous tab' })
@@ -202,22 +199,17 @@ vim.keymap.set('n', '<C-H>', '20zh', { desc = 'I don\'t want to hit shift' })
 vim.keymap.set('n', '<leader>zh', 'zH', { desc = 'I don\'t want to hit shift' })
 vim.keymap.set('n', '<leader>zl', 'zL', { desc = "I don't want to hit shift " })
 
---# wow this works well with my freaking capslock I just hit ctrl+capslock and hjkl hehehe
-vim.keymap.set('n', '<C-right>', '20zl', { desc = "I don't want to hit shift " })
-vim.keymap.set('n', '<C-left>', '20zh', { desc = 'I don\'t want to hit shift' })
-vim.keymap.set('n', '<C-down>', '<c-e>', { desc = 'I don\'t want to hit shift' })
-vim.keymap.set('n', '<C-up>', '<c-y>', { desc = 'I don\'t want to hit shift' })
+--# capslock + alt + hjkl
+vim.keymap.set('n', '<A-right>', '20zl', { desc = "I don't want to hit shift " })
+vim.keymap.set('n', '<A-left>', '20zh', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<A-down>', '<c-e>', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<A-up>', '<c-y>', { desc = 'I don\'t want to hit shift' })
 
+vim.keymap.set('n', '<A-S-j>', '<c-e>', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', '<A-S-k>', '<c-y>', { desc = 'I don\'t want to hit shift' })
 
-
-
--- OPTIONAL: Mappings for line-by-line scrolling without moving the cursor
--- If you find Ctrl-E and Ctrl-Y easy to press, you don't need these.
--- But if you want a leader-based alternative:
-vim.keymap.set('n', '<leader>se', '<C-e>', { desc = 'Scroll Down (like C-e)' })
-vim.keymap.set('n', '<leader>sy', '<C-y>', { desc = 'Scroll Up (like C-y)' })
 --# This thing I added and I'm not sure why... maybe when I'm in wrap mode. but does this even work
---# I'm not sure to be honest when it's off it's fine dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+--# I'm not sure to be honest when it's off it's fine 
 -- vim.keymap.set("n", "gJ", "mzgJ`z")
 
 
@@ -233,5 +225,72 @@ vim.keymap.set('n', '<leader>cwd', '<Cmd>cd %:h<CR>', { desc = 'Decrease window 
 -- just screwing with this I don't like `X` it makes me hit shift+x and I do mainly use x so you know
 -- trying to be consistent and in terminal backspace in normal mode actually is backspace so i'm liking it
 -- In your init.lua
+
+
+-- =======I don't kike this it's prone to errors... maybe in the temrinal sure. ==========
 -- Make Backspace delete the character to the left in Normal mode
-vim.keymap.set('n', '<BS>', 'X', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<BS>', 'X', { noremap = true, silent = true })
+
+-- idk for some reason when it's in remap.lua it's not loading well so I'll put it in here
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+
+
+
+
+-- ==============================================================================
+-- ==                      Smart Word Wrap Motions                           ==
+-- ==============================================================================
+
+vim.keymap.set({'n', 'v'}, 'j', function()
+  return vim.opt.wrap:get() and 'gj' or 'j'
+end, { expr = true, silent = true, desc = "Smart j motion" })
+
+vim.keymap.set({'n', 'v'}, 'k', function()
+  return vim.opt.wrap:get() and 'gk' or 'k'
+end, { expr = true, silent = true, desc = "Smart k motion" })
+
+vim.keymap.set({'n', 'v', 'o'}, '0', function()
+    return vim.opt.wrap:get() and 'g0' or '0'
+end, { expr = true, silent = true, desc = "Smart 0 motion" })
+
+vim.keymap.set({'n', 'v', 'o'}, '^', function()
+    return vim.opt.wrap:get() and 'g^' or '^'
+end, { expr = true, silent = true, desc = "Smart ^ motion" })
+
+vim.keymap.set({'n', 'v', 'o'}, '$', function()
+    return vim.opt.wrap:get() and 'g$' or '$'
+end, { expr = true, silent = true, desc = "Smart $ motion" })
+
+
+
+
+vim.keymap.set('n', '<leader>sh', '<cmd>:sp<cr>', { desc = "Open Quickfix List" })
+vim.keymap.set('n', '<leader>sv', '<cmd>:vsp<cr>', { desc = "Open Quickfix List" })
+-- vim.keymap.set('n', ']q', '<cmd>cnext<cr>', { desc = "Next Quickfix Item" })
+-- vim.keymap.set('n', '[q', '<cmd>cprev<cr>', { desc = "Previous Quickfix Item" })
+
+
+
+---# Terminal like in nvim
+
+-- Map Ctrl+f to move the cursor forward (right) in Insert Mode
+vim.keymap.set("i", "<C-f>", "<Right>")
+
+-- Map Ctrl+b to move the cursor backward (left) in Insert Mode
+vim.keymap.set("i", "<C-b>", "<Left>")
+
+
+-- Go to the first non-whitespace character of the line (like ^)
+-- Not quite like C-a if I want C-a I just do the like Capslock+a
+vim.keymap.set("i", "<C-a>", "<C-o>^")
+
+
+-- Go to the end of the line (like Ctrl+e in the terminal)
+vim.keymap.set("i", "<C-e>", "<End>")
+
+
+vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { silent = true })
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { silent = true })

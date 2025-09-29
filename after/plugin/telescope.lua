@@ -12,7 +12,33 @@
 
 
 
+-- local function telescope_smart_open(picker_name, opts)
+--   local ignore_filetypes = {
+--     "undotree",
+--     -- "NvimTree",
+--     -- "neo-tree",
+--     -- "trouble",
+--     -- "lazy",
+--     -- "mason",
+--   }
+--   -- Get the filetype of the current buffer
+--   local current_filetype = vim.bo.filetype
+--
+--   -- Check if the current filetype is in our ignore list
+--   if vim.tbl_contains(ignore_filetypes, current_filetype) then
+--     -- If it is, switch to the last used window (which is hopefully a normal buffer)
+--     vim.cmd("wincmd p")
+--   end
+--
+--   -- Now that we are in a safe buffer, call the original Telescope function
+--   require("telescope.builtin")[picker_name](opts)
+-- end
 
+
+local open_with_trouble = require("trouble.sources.telescope").open
+
+-- Use this to add more results without clearing the trouble list
+local add_to_trouble = require("trouble.sources.telescope").add
 
 local Layout = require("nui.layout")
 local Popup = require("nui.popup")
@@ -24,6 +50,11 @@ local action_layout = require("telescope.actions.layout") -- We'll need this for
 
 
 local action_state = require("telescope.actions.state")
+
+
+
+
+
 
 -- Our new custom functions
 local function resize_preview(direction)
@@ -48,210 +79,225 @@ end
 
 
 telescope.setup({
-defaults = {
-layout_strategy = "flex",
---# I think it's on by default
--- color_devicons = true,  -- already in your config — good!
+    defaults = {
+        layout_strategy = "horizontal",
+        --# I think it's on by default
+        -- color_devicons = true,  -- already in your config — good!
 
-layout_config = {
-    -- preview_width = 0.5,
-    -- Use 95% width/height. 100% can sometimes cause weird border artifacts.
-    width = 0.95,
-    height = 0.95,
-    -- You can also configure the flex-specific options if you want
-    flex = {
-        flip_columns = 120,
-    }
-},
-
-selection_strategy = "follow",
-
-dynamic_preview_title = true,
--- let's try this for now and later we try it with this on for like full path problem solving
-path_display = { "truncate" },
--- path_display = { "smart" },
-borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-prompt_prefix = "  ",
-selection_caret = " ",
-history = {
-    path = vim.fn.stdpath "data" .. "/telescope_history.sqlite3",
-    limit = 100,
-},
--- vimgrep_arguments = { "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--trim" },
-
-vimgrep_arguments = {
-    "rg",
-    "-L",
-    "--color=never",
-    "--no-heading",
-    "--with-filename",
-    "--line-number",
-    "--column",
-    "--smart-case",
-    "--glob", "!**/.git/*",      -- exclude .git
-    "--glob", "!**/node_modules/*", -- exclude node_modules (if not in ignore_patterns)
-},
-
-
-
-preview = { 
-    filesize_limit = 1,
-    check_mime_type = true,
-
-},
-
-
--- cycle_layout_list = { "horizontal", "vertical" },
-
-cycle_layout_list = {
-    -- Step 2: A custom "Focus Preview" mode
-    {
-        layout_strategy = 'horizontal',
         layout_config = {
             width = 0.95,
             height = 0.95,
-            -- Make the preview HUGE, leaving only a tiny sliver for results
-            -- preview_height = 0.9, 
-            preview_width = math.floor(vim.o.lines * 3.37)
+            preview_cutoff = 50,
+            preview_width = 50,
+            --# bottom/top
+            -- prompt_position = "bottom",
         },
-    },
-    {
-        layout_strategy = 'vertical',
-        layout_config = {
-            width = 0.95,
-            height = 0.95,
-            -- Make the preview HUGE, leaving only a tiny sliver for results
-            -- preview_height = 0.9, 
-            preview_height = math.floor(vim.o.lines * 0.69)
+
+        selection_strategy = "follow",
+
+        dynamic_preview_title = true,
+        -- let's try this for now and later we try it with this on for like full path problem solving
+        path_display = { "truncate" },
+        -- path_display = { "smart" },
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        prompt_prefix = "  ",
+        selection_caret = " ",
+        history = {
+            path = vim.fn.stdpath "data" .. "/telescope_history.sqlite3",
+            limit = 100,
         },
-    },
+        -- vimgrep_arguments = { "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case", "--trim" },
 
-    {
-        layout_strategy = 'flex',
-        layout_config = {
-            -- width = 0.1,
-            -- height = 0.1,
+        vimgrep_arguments = {
+            "rg",
+            "-L",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--hidden", -- <<< ADD THIS LINE
+            "--smart-case",
+            "--glob", "!**/.git/*",      -- exclude .git
+            "--glob", "!**/node_modules/*", -- exclude node_modules (if not in ignore_patterns)
         },
-    },
-},
 
 
-mappings = {
-    i = {
-        -- Make <esc> close Telescope directly from insert mode
-        -- ##ISSUE(W38 Wed, 17 at 09:58) This does't work well in insert mode
-        -- ##FIX(W38 Wed, 17 at 10:00) bro just use escape or double capslock tap or capslock go to nomal mode and q. in normal mode it works
-        -- ["A-q"] = actions.close,
 
+        preview = { 
+            filesize_limit = 1,
+            check_mime_type = true,
 
-        ["<C-u>"] = function(prompt_bufnr)
-            -- This function clears the entire prompt buffer
-            vim.api.nvim_buf_set_lines(prompt_bufnr, 0, -1, false, { "" })
-        end,
-        ["<C-x>"] = actions.select_vertical + actions.center,
-        ["<C-h>"] = actions.select_horizontal + actions.center,
-        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-b>"] = actions.preview_scrolling_up,
-        ["<C-f>"] = actions.preview_scrolling_down,
-        ["<A-k>"] = actions.preview_scrolling_up,
-        ["<A-j>"] = actions.preview_scrolling_down,
-        ["<C-up>"] = actions.preview_scrolling_up,
-        ["<C-down>"] = actions.preview_scrolling_down,
-        ["<A-p>"] = action_layout.toggle_preview,
-        --# this is so good so you can look for some live_grep and then fuzzy find over those files
-        --# so it's like search for something in general and then fuzzy find over those search results
-        ["<C-Space>"] = actions.to_fuzzy_refine,
-        --# very sick select all
-        ["<A-q>"] = actions.toggle_all, -- "A" for "All"
-        --# THis is just some ai bs I like the idea for sure 
-        -- ["<A-P>"] = require('telescope.actions').preview_fullscreen,
-        ["<C-l>"] = actions.cycle_previewers_next,
-        -- ["C-w"] = resize_preview("increase"),
-        -- ["C-e"] = resize_preview("decrease"),
-        ["<M-l>"] = action_layout.cycle_layout_next,
-        ["<M-h>"] = action_layout.cycle_layout_prev,
-        ["<C-a>"] = actions.cycle_previewers_prev,
-        --# this only works on newer versions of telescope 
-        ["<C-e>"] = actions.preview_scrolling_left,
-        ["<C-s>"] = actions.preview_scrolling_right,
-        ["<C-left>"] = actions.preview_scrolling_left,
-        ["<C-right>"] = actions.preview_scrolling_right,
-    },
-    n = {
-        ["q"] = actions.close,
-        ["<C-x>"] = actions.select_vertical + actions.center,
-        ["<C-h>"] = actions.select_horizontal + actions.center,
-        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-b>"] = actions.preview_scrolling_up,
-        ["<M-l>"] = action_layout.cycle_layout_next,
-        ["<M-h>"] = action_layout.cycle_layout_prev,
-        ["<C-f>"] = actions.preview_scrolling_down,
-        ["<A-p>"] = action_layout.toggle_preview,
-        ["<A-k>"] = actions.preview_scrolling_up,
-        ["<A-j>"] = actions.preview_scrolling_down,
-        ["<Up>"] = actions.cycle_history_prev,
-        ["<C-up>"] = actions.preview_scrolling_up,
-        ["<C-down>"] = actions.preview_scrolling_down,
-        ["<C-Space>"] = actions.to_fuzzy_refine,
-        ["<Down>"] = actions.cycle_history_next,
-        ["<C-left>"] = actions.preview_scrolling_left,
-        ["<C-right>"] = actions.preview_scrolling_right,
-        ["<A-q>"] = actions.toggle_all, -- "A" for "All"
-        ["<C-l>"] = actions.cycle_previewers_next,
-        ["<C-a>"] = actions.cycle_previewers_prev,
-        --# this only works on newer versions of telescope
-        ["<C-e>"] = actions.preview_scrolling_left,
-        ["<C-s>"] = actions.preview_scrolling_right,
-    },
-},
-},
-
-pickers = {
-    buffers = {
-        preview_width = 0.7,
-        layout_config = { height = 0.6, width = 0.8 },
-        mappings = {
-            i = { ["<A-d>"] = actions.delete_buffer }, -- Use <c-d> to delete
-            n = { ["dd"] = actions.delete_buffer },
         },
-    },
 
--- --- NEW ---
--- Add this new entry for the current buffer fuzzy finder
-current_buffer_fuzzy_find = {
-    -- Tell it to use a centered dropdown theme without a preview
-    -- theme = "dropdown",
-    previewer = false,
-},
-find_files = {
-    hidden = true,
-    preview_width = 0.3,
-    find_command = {
-        "fd", "--type", "f", "--hidden", "--follow",
-        "--exclude", ".git",
-        "--exclude", ".node_modules", 
-        "--exclude", ".cache", 
-        "--exclude", ".steam", 
-    },
-    -- --- NEW ---
-    -- RECIPE: Add a mapping in normal mode to change directory
-    -- #this is not worth it it's better to do it with after find you do <leader>cwd or do it through the neotree
-    -- mappings = {
-        --   n = {
-            --     ["<leader>cd"] = function(prompt_bufnr)
-                --       local selection = require("telescope.actions.state").get_selected_entry()
-                --       local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-                --       require("telescope.actions").close(prompt_bufnr)
-                --       vim.cmd.lcd(dir) -- Use :lcd to change dir for the current window only
-                --       vim.notify("Changed CWD to: " .. dir)
-                --     end,
-                --   },
-                -- },
+
+        -- cycle_layout_list = { "horizontal", "vertical" },
+
+        cycle_layout_list = {
+            -- Step 2: A custom "Focus Preview" mode
+            {
+                layout_strategy = 'horizontal',
+                layout_config = {
+                    width = 0.95,
+                    height = 0.95,
+                    -- Make the preview HUGE, leaving only a tiny sliver for results
+                    -- preview_height = 0.9, 
+                    preview_width = math.floor(vim.o.lines * 2.77)
+                },
             },
+            {
+                layout_strategy = 'horizontal',
+                layout_config = {
+                    width = 0.95,
+                    height = 0.95,
+                    -- Make the preview HUGE, leaving only a tiny sliver for results
+                    -- preview_height = 0.9, 
+                    preview_width = 50
+                },
+            },
+            {
+                layout_strategy = 'horizontal',
+                layout_config = {
+                    width = 0.95,
+                    height = 0.95,
+                    -- Make the preview HUGE, leaving only a tiny sliver for results
+                    -- preview_height = 0.9, 
+                    preview_width = 0
+                },
+            },
+        },
+
+
+        mappings = {
+            i = {
+                -- Make <esc> close Telescope directly from insert mode
+                -- ##ISSUE(W38 Wed, 17 at 09:58) This does't work well in insert mode
+                -- ##FIX(W38 Wed, 17 at 10:00) bro just use escape or double capslock tap or capslock go to nomal mode and q. in normal mode it works
+                -- ["A-q"] = actions.close,
+
+
+                ["<C-u>"] = function(prompt_bufnr)
+                    -- This function clears the entire prompt buffer
+                    vim.api.nvim_buf_set_lines(prompt_bufnr, 0, -1, false, { "" })
+                end,
+                ["<C-t>"] = open_with_trouble,
+                ["<C-S-t>"] = add_to_trouble,
+                ["<C-x>"] = actions.select_vertical + actions.center,
+                ["<A-h>"] = actions.select_horizontal + actions.center,
+                ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-b>"] = actions.preview_scrolling_up,
+                ["<C-f>"] = actions.preview_scrolling_down,
+                ["<A-k>"] = actions.preview_scrolling_up,
+                ["<A-j>"] = actions.preview_scrolling_down,
+                ["<C-up>"] = actions.preview_scrolling_up,
+                ["<A-S-j>"] = actions.preview_scrolling_down,
+                ["<A-S-k>"] = actions.preview_scrolling_up,
+                ["<C-down>"] = actions.preview_scrolling_down,
+                ["<A-p>"] = action_layout.toggle_preview,
+                --# this is so good so you can look for some live_grep and then fuzzy find over those files
+                --# so it's like search for something in general and then fuzzy find over those search results
+                ["<C-Space>"] = actions.to_fuzzy_refine,
+                --# very sick select all
+                ["<A-q>"] = actions.toggle_all, -- "A" for "All"
+                --# THis is just some ai bs I like the idea for sure 
+                -- ["<A-P>"] = require('telescope.actions').preview_fullscreen,
+                ["<C-l>"] = actions.cycle_previewers_next,
+                -- ["C-w"] = resize_preview("increase"),
+                -- ["C-e"] = resize_preview("decrease"),
+                ["<M-l>"] = action_layout.cycle_layout_next,
+                ["<M-h>"] = action_layout.cycle_layout_prev,
+                ["<C-a>"] = actions.cycle_previewers_prev,
+                --# this only works on newer versions of telescope 
+                ["<C-e>"] = actions.preview_scrolling_left,
+                ["<C-s>"] = actions.preview_scrolling_right,
+                ["<C-left>"] = actions.preview_scrolling_left,
+                ["<C-right>"] = actions.preview_scrolling_right,
+                ["<A-S-h>"] = actions.preview_scrolling_left,
+                ["<A-S-l>"] = actions.preview_scrolling_right,
+            },
+            n = {
+                ["q"] = actions.close,
+                ["<C-S-t>"] = add_to_trouble,
+                ["<C-t>"] = open_with_trouble,
+                ["<C-x>"] = actions.select_vertical + actions.center,
+                ["<A-h>"] = actions.select_horizontal + actions.center,
+                ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-b>"] = actions.preview_scrolling_up,
+                ["<M-l>"] = action_layout.cycle_layout_next,
+                ["<M-h>"] = action_layout.cycle_layout_prev,
+                ["<C-f>"] = actions.preview_scrolling_down,
+                ["<A-p>"] = action_layout.toggle_preview,
+                ["<A-k>"] = actions.preview_scrolling_up,
+                ["<A-j>"] = actions.preview_scrolling_down,
+                ["<Up>"] = actions.cycle_history_prev,
+                ["<C-up>"] = actions.preview_scrolling_up,
+                ["<C-down>"] = actions.preview_scrolling_down,
+                ["<C-Space>"] = actions.to_fuzzy_refine,
+                ["<Down>"] = actions.cycle_history_next,
+                ["<C-left>"] = actions.preview_scrolling_left,
+                ["<C-right>"] = actions.preview_scrolling_right,
+                ["<A-q>"] = actions.toggle_all, -- "A" for "All"
+                ["<C-l>"] = actions.cycle_previewers_next,
+                ["<C-a>"] = actions.cycle_previewers_prev,
+                --# this only works on newer versions of telescope
+                ["<C-e>"] = actions.preview_scrolling_left,
+                ["<C-s>"] = actions.preview_scrolling_right,
+                ["<A-S-h>"] = actions.preview_scrolling_left,
+                ["<A-S-j>"] = actions.preview_scrolling_down,
+                ["<A-S-k>"] = actions.preview_scrolling_up,
+                ["<A-S-l>"] = actions.preview_scrolling_right,
+            },
+        },
+    },
+
+    pickers = {
+        buffers = {
+            preview_width = 0.7,
+            layout_config = { height = 0.6, width = 0.8 },
+            mappings = {
+                i = { ["<A-d>"] = actions.delete_buffer }, -- Use <c-d> to delete
+                n = { ["dd"] = actions.delete_buffer },
+            },
+        },
+
+        -- --- NEW ---
+        -- Add this new entry for the current buffer fuzzy finder
+        current_buffer_fuzzy_find = {
+            -- Tell it to use a centered dropdown theme without a preview
+            -- theme = "dropdown",
+            previewer = false,
+        },
+
+
+        find_files = {
+            hidden = true,
+            preview_width = 0.3,
+            find_command = {
+                "fd", "--type", "f", "--hidden", "--follow",
+                "--exclude", ".git",
+                "--exclude", ".node_modules", 
+                "--exclude", ".cache", 
+                "--exclude", ".steam", 
+            },
+            -- --- NEW ---
+            -- RECIPE: Add a mapping in normal mode to change directory
+            -- #this is not worth it it's better to do it with after find you do <leader>cwd or do it through the neotree
+            -- mappings = {
+                --   n = {
+                    --     ["<leader>cd"] = function(prompt_bufnr)
+                        --       local selection = require("telescope.actions.state").get_selected_entry()
+                        --       local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                        --       require("telescope.actions").close(prompt_bufnr)
+                        --       vim.cmd.lcd(dir) -- Use :lcd to change dir for the current window only
+                        --       vim.notify("Changed CWD to: " .. dir)
+                        --     end,
+                        --   },
+                        -- },
+                    },
 
             live_grep = {
                 debounce = 150,  -- ms delay before searching after typing stops
@@ -269,31 +315,69 @@ find_files = {
                 -- the default case_mode is "smart_case"
             },
 
-        -- V V V ADD THIS NEW SECTION FOR THE FILE BROWSER V V V
-        file_browser = {
-            -- You can customize the theme here, for example
-            -- theme = "dropdown",
-            -- This is the cool part, it replaces the default file explorer
-            hijack_netrw = true,
+            -- V V V ADD THIS NEW SECTION FOR THE FILE BROWSER V V V
+            file_browser = {
+                -- You can customize the theme here, for example
+                -- theme = "dropdown",
+                -- This is the cool part, it replaces the default file explorer
+                hijack_netrw = true,
+            },
+            -- ^ ^ ^ END OF THE NEW SECTION ^ ^ ^
+            undo = {
+                side_by_side = true,
+                layout_config = {
+                    preview_width = 0.8,
+                },
+                -- other extensions:
+                -- file_browser = { ... }
+
+            },
         },
-        -- ^ ^ ^ END OF THE NEW SECTION ^ ^ ^
-
-
-        },
-
-})
-
+    }
+)
 
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
 require('telescope').load_extension('projects')
+require('telescope').load_extension('notify')
 
-    -- =======================================================
-    -- PART 2: YOUR PERSONAL KEYMAPS
-    -- These are the shortcuts to *launch* the different Telescope pickers.
-    -- =======================================================
-    local builtin = require('telescope.builtin')
-    local keymap = vim.keymap.set
+-- ====================== Undo tree defaults ===============================
+-- for more information about the mappings and what not check out https://github.com/debugloop/telescope-undo.nvim
+-- By default, the following mappings are enabled.
+
+require("telescope").load_extension("undo")
+vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")
+
+--
+-- require("telescope").setup({
+--   extensions = {
+--     undo = {
+--       mappings = {
+--         i = {
+--           ["<cr>"] = require("telescope-undo.actions").yank_additions,
+--           ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+--           ["<C-cr>"] = require("telescope-undo.actions").restore,
+--           -- alternative defaults, for users whose terminals do questionable things with modified <cr>
+--           ["<C-y>"] = require("telescope-undo.actions").yank_deletions,
+--           ["<C-r>"] = require("telescope-undo.actions").restore,
+--         },
+--         n = {
+--           ["y"] = require("telescope-undo.actions").yank_additions,
+--           ["Y"] = require("telescope-undo.actions").yank_deletions,
+--           ["u"] = require("telescope-undo.actions").restore,
+--         },
+--       },
+--     },
+--   },
+-- })
+-- ====================== Undo tree defaults ===============================
+
+-- =======================================================
+-- PART 2: YOUR PERSONAL KEYMAPS
+-- These are the shortcuts to *launch* the different Telescope pickers.
+-- =======================================================
+local builtin = require('telescope.builtin')
+local keymap = vim.keymap.set
 
 
     --# btw this only searches one line... you can't search for multiple lines... that's umm that's kinda complex
@@ -359,7 +443,14 @@ require('telescope').load_extension('projects')
 
 -- File & Project Finders
 keymap('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
-keymap('n', '<leader>ff', function() builtin.find_files({ cwd = vim.fn.expand('%:p:h') }) end)
+--# because I make mistakes and end up typing fp fast
+keymap('n', '<leader>fp', builtin.find_files, { desc = 'Telescope find files' })
+
+--# this is sick it only finds files within the current directory of the opened file. and the dir within it's sick
+keymap('n', '<leader>pF', function() builtin.find_files({ cwd = vim.fn.expand('%:p:h') }) end)
+
+--# this only searches git files so it works well with <leader>pf so yeah, very useful
+keymap('n', '<leader>pg', builtin.git_files, { desc = 'Telescope find Git files' })
 
 --# pf makes more sense because I have nf which is for neotree so they work kinda the same... 
 --so always think of a letter+f if it's p then it's telescrop if it's n then it's neotree
@@ -374,13 +465,13 @@ keymap('n', '<leader>ff', function() builtin.find_files({ cwd = vim.fn.expand('%
 -- keymap('n', '<C-p>', builtin.git_files, { desc = 'Telescope find Git files' })
 
 
+
 --# idk what these are and how to use them and what not .... 
-keymap('n', '<leader>Gf', builtin.git_files, { desc = 'Telescope find Git files' })
 keymap('n', '<leader>Gs', builtin.git_status, { desc = 'Telescope Git status' })
 keymap('n', '<leader>Gb', builtin.git_branches, { desc = 'Telescope Git branches' })
 keymap('n', '<leader>Gc', builtin.git_commits, { desc = 'Telescope Git commits' })
-keymap('n', '<leader>GS', builtin.git_stash, { desc = 'Telescope Git stash' })
 keymap('n', '<leader>GC', builtin.git_bcommits, { desc = 'Telescope Git bcommits' })
+keymap('n', '<leader>Gh', builtin.git_stash, { desc = 'Telescope Git stash' })
 
 
 keymap('n', '<leader>B', builtin.buffers, { desc = 'Telescope Find buffers' })
@@ -605,7 +696,7 @@ keymap('n', '<leader>td', builtin.diagnostics, { desc = 'Telescope Diagnostics' 
 keymap('n', 'gr', builtin.lsp_references, { desc = 'Telescope LSP References' })
 
 -- Quickfix History
-keymap('n', '<leader>tq', builtin.quickfixhistory, { desc = 'Telescope Quickfix History' })
+keymap('n', '<leader>fa', builtin.quickfixhistory, { desc = 'Telescope Quickfix History' })
 
 
 
@@ -639,11 +730,46 @@ end, { desc = "Telescope File Browser" })
 -- end, { desc = 'Grep string in all open buffers' })
 
 
+-- In PART 2 of ~/.config/nvim/lua/user/telescope.lua
 
+local themes = require('telescope.themes') -- Make sure you have this line
 
--- V V V ADD THIS NEW KEYMAP FOR PROJECTS V V V
-keymap("n", "<leader>fp", function()
-    require("telescope").extensions.projects.projects({})
+-- V V V REPLACE YOUR OLD '<leader>fp' KEYMAP WITH THIS CORRECTED VERSION V V V
+keymap("n", "<leader>pp", function()
+    require("telescope").extensions.projects.projects({
+        attach_mappings = function(prompt_bufnr, map)
+            -- This function is called when the picker opens.
+
+            -- This is the normal mode mapping, which works great.
+            map("n", "b", function()
+                local entry = require("telescope.actions.state").get_selected_entry()
+                require("telescope.actions").close(prompt_bufnr)
+                require("telescope").extensions.file_browser.file_browser({
+                    path = entry.value,
+                })
+            end)
+
+            -- THIS IS THE FIX: We use "<C-b>" with angle brackets
+            -- for the insert mode mapping.
+            map("i", "<C-b>", function()
+                local entry = require("telescope.actions.state").get_selected_entry()
+                require("telescope.actions").close(prompt_bufnr)
+                require("telescope").extensions.file_browser.file_browser({
+                    path = entry.value,
+                })
+            end)
+
+            -- Return true to ensure other default mappings like 's', 'd', etc. still work.
+            return true
+        end,
+    })
 end, { desc = "Telescope Find Projects" })
--- ^ ^ ^ END OF THE NEW KEYMAP ^ ^ ^
+-- ^ ^ ^ END OF THE REPLACEMENT ^ ^ ^:lua vim.notify("This is a test message!", "info")
 
+
+-- in your init.lua or a keymaps file
+-- A keymap to easily view notification history
+vim.keymap.set('n', '<leader>N', ':Telescope notify<CR>', { desc = "View Notification History" })
+
+-- Keymaps for the Quickfix List
+vim.keymap.set('n', '<leader>fA', '<cmd>copen<cr>', { desc = "Open Quickfix List" })

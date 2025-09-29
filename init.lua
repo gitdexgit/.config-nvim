@@ -1,5 +1,19 @@
 require("dex")
 
+-- ===================================================================
+-- 1. Setup Awesome Debugging Globals (THIS IS THE SECTION)
+-- ===================================================================
+-- This code block makes dd, bt, and := available everywhere.
+_G.dd = function(...) Snacks.debug.inspect(...) end
+_G.bt = function() Snacks.debug.backtrace() end
+
+if vim.fn.has("nvim-0.11") == 1 then
+    vim._print = function(_, ...) _G.dd(...) end
+else
+    vim.print = _G.dd
+end
+
+
 
 vim.deprecate = function()
     return function() end
@@ -14,7 +28,7 @@ local zsh_edit_group = vim.api.nvim_create_augroup('ZshEdit', { clear = true })
 
 
 
--- Create an autocommand group to organize our autocommands.
+-- Create an autocommand group organize our autocommands.
 local wrap_group = vim.api.nvim_create_augroup('WrapSettings', { clear = true })
 
 -- Enable wrap for specific file types (prose, text, etc.).
@@ -91,7 +105,6 @@ vim.keymap.set("n", "gl", vim.diagnostic.open_float)
 
 
 
--- ~/.config/nvim/init.lua
 
 -- Create a group for our custom highlights
 local myHighlights = vim.api.nvim_create_augroup("MyHighlights", { clear = true })
@@ -102,25 +115,42 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     callback = function()
         -- Choose one of the lines below
         -- vim.api.nvim_set_hl(0, "Visual", { bg = "#85674A" }) -- Muted Light Brown
-        vim.api.nvim_set_hl(0, "Visual", { bg = "#6B553D" }) -- Subtle Brown (Transparent Feel)
+        -- # I don't need this because I have background black
+        -- vim.api.nvim_set_hl(0, "Visual", { bg = "#6B553D" }) -- Subtle Brown (Transparent Feel)
+
+        -- For Modified lines (Changed from Blue to Orange)
+        -- vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#D18616' })
+        -- vim.api.nvim_set_hl(0, 'SnacksStatusColumnGitsignsChange', { fg = '#D18616' })
+
+        -- -- For Deleted lines (A softer, less aggressive red)
+        -- vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#E06C75' })
+        -- vim.api.nvim_set_hl(0, 'SnacksStatusColumnGitsignsDelete', { fg = '#E06C75' })
+
+        -- For Added lines (A pleasant green)
+        -- just so that I can like make life easier
+        vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#98C379' })
+        vim.api.nvim_set_hl(0, 'SnacksStatusColumnGitsignsAdd', { fg = '#98C379' })
 
 
         -- Option 3: Brighter Accent Background
-        -- vim.api.nvim_set_hl(0, "MatchParen", { underline = true, bg = "#284B63" })
+        -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#284B63", bold = true})
+        -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#6B553D", bold = true})
+        vim.api.nvim_set_hl(0, "MatchParen", {bg = "#ff5555", bold = true})
 
         -- Option 3: Brighter Accent Background
-        vim.api.nvim_set_hl(0, "MatchParen", { bg = "#D14D21" })
+        -- vim.api.nvim_set_hl(0, "MatchParen", { bg = "#D14D21" })
 
         -- Option 3: Brighter Accent Background
         -- vim.api.nvim_set_hl(0, "MatchParen", { bg = "#85674A" })
+        -- vim.api.nvim_set_hl(0, "MatchParen", { bg = "#6B553D" })
 
         -- vim.api.nvim_set_hl(0, 'MatchParen', { bg = '#ff5555', fg = '#ffffff', bold = true })
 
         -- Option 1: Subtle Underline (Recommended)
-        -- vim.api.nvim_set_hl(0, "MatchParen", { underline = true, bg = 'none' })
+        -- vim.api.nvim_set_hl(0, "MatchParen", {bg = 'none' })
 
         -- Option 2: Consistent Brown Background
-        -- vim.api.nvim_set_hl(0, "MatchParen", { underline = true, bg = "#6B553D" })
+        -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#6B553D" })
 
 
 
@@ -128,7 +158,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 
--- idk for some reason when it's in remap.lua it's not loading well so I'll put it in here
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+
+

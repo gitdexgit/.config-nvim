@@ -35,7 +35,10 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+
+--# this screws with snacks statuscolumn
+-- vim.opt.signcolumn = "yes"
+
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
@@ -43,7 +46,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 -- ADD THESE TWO LINES HERE
-vim.opt.timeoutlen = 650 -- Time in ms to wait for a mapped sequence to complete
+-- vim.opt.timeoutlen = 650 -- Time in ms to wait for a mapped sequence to complete
 -- vim.opt.ttimeoutlen = 10  -- Time in ms to wait for a key code sequence
 
 
