@@ -6,7 +6,7 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 --# i don't understand this <Plug>.... thing is this a lazynvim ? or is this in packer or what
--- vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
+-- vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })                               
 
 vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "J", "mzJ`z")
@@ -15,6 +15,7 @@ vim.keymap.set("n", "J", "mzJ`z")
 -- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "z.", "zszH")
 --##dummy oh the =ap is for indentation with that indentation plugin conform or sometihng learn that
 --# I don't use this as much but I should try it out it's cool it indents stuff 
 vim.keymap.set("n", "=ap", "ma=ap'a")
@@ -183,14 +184,28 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window', remap = 
 vim.keymap.set('n', '<leader>.', '5<C-w>>', { desc = 'Move to right window', remap = true })
 vim.keymap.set('n', '<leader>,', '5<C-w><', { desc = 'Move to right window', remap = true })
 
+vim.keymap.set('n', '<A-.>', '5<C-w>>', { desc = 'Move to right window', remap = true })
+vim.keymap.set('n', '<A-,>', '5<C-w><', { desc = 'Move to right window', remap = true })
+
+
 vim.keymap.set('n', '<leader>=', '5<C-w>+', { desc = 'Increase window height by 5' })
 vim.keymap.set('n', '<leader>-', '5<C-w>-', { desc = 'Decrease window height by 5' })
+vim.keymap.set('n', '<A-=>', '5<C-w>+', { desc = 'Increase window height by 5' })
+vim.keymap.set('n', '<A-->', '5<C-w>-', { desc = 'Decrease window height by 5' })
 vim.keymap.set('n', '<leader>+', '<Cmd>wincmd =<CR>', { desc = 'Decrease window height by 5' })
 
 --# this is really useful isn't it
 vim.keymap.set('n', '<C-L>', '20zl', { desc = "I don't want to hit shift " })
 vim.keymap.set('n', '<A-S-L>', '20zl', { desc = "I don't want to hit shift " })
 vim.keymap.set('n', '<A-S-H>', '20zh', { desc = 'I don\'t want to hit shift' })
+
+
+vim.keymap.set('n', 'H', '0', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', 'L', '$', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('n', 'M', '^', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('v', 'H', '0', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('v', 'L', '$', { desc = 'I don\'t want to hit shift' })
+vim.keymap.set('v', 'M', '^', { desc = 'I don\'t want to hit shift' })
 -- Easier tab navigation
 -- vim.keymap.set('n', '<Tab>', '<cmd>tabnext<CR>', { desc = 'Go to next tab' })
 -- vim.keymap.set('n', '<S-Tab>', '<cmd>tabprevious<CR>', { desc = 'Go to previous tab' })
@@ -294,3 +309,8 @@ vim.keymap.set("i", "<C-e>", "<End>")
 
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { silent = true })
 vim.keymap.set("n", "<leader>Q", "<cmd>q!<CR>", { silent = true })
+
+
+
+vim.keymap.set("n", "<leader>w", "<cmd>:w<CR>zz")
+

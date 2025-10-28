@@ -1,6 +1,6 @@
 -- ~/.config/nvim/lua/user/lsp.lua
 
-print("--- LOADING LSP CONFIG ---")
+-- print("--- LOADING LSP CONFIG ---")
 
 -- This is the core setup for your LSP configuration.
 -- It should be called after your LSP-related plugins have been loaded.
@@ -97,7 +97,7 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 require("mason-lspconfig").setup({
     -- This ensures your servers are installed
     ensure_installed = {
-        "lua_ls", "pyright", "rust_analyzer", "gopls", "clangd",
+        "lua_ls", "pyright",
     },
     -- This is the single source of truth for setting up servers.
     handlers = {
@@ -109,7 +109,6 @@ require("mason-lspconfig").setup({
                 on_attach = on_attach, 
             })
         end,
-
         -- Special override for lua_ls to add custom settings
         ["lua_ls"] = function()
             require("lspconfig").lua_ls.setup({
@@ -118,6 +117,17 @@ require("mason-lspconfig").setup({
                 settings = {
                     Lua = { diagnostics = { globals = { 'vim' } } }
                 }
+            })
+        end,
+        -- *** NEW: Manual setup for clangd using system path ***
+        ["clangd"] = function()
+            -- By providing cmd and filetypes directly, we bypass Mason's search
+            -- The 'cmd' will search for 'clangd' in your system's $PATH
+            require("lspconfig").clangd.setup({
+                capabilities = lsp_capabilities,
+                on_attach = on_attach,
+                cmd = { "clangd" }, -- Tells lspconfig to execute the system binary
+                filetypes = { "c", "cpp", "objc", "objcpp" },
             })
         end,
     }

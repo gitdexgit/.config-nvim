@@ -7,11 +7,6 @@ vim.g.maplocalleader = " "
 --# whatt even is this lol 
 -- vim.o.laststatus = 3 -- Use a global statusline at the very bottom of the window
 
-local opt = vim.opt
-opt.number = true
--- ... all your other persona
-
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -53,7 +48,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.listchars = 'tab:▸\\ ,trail:·,space:·,extends:»,precedes:«'
 
 -- Allow the mouse to be used in neovim
-vim.o.mouse = 'a'
+vim.opt.mouse = 'a'
 
 
 -- :set virtualedit=onemore: A popular setting. It allows the cursor to move one character past the end of the line. This is surprisingly useful.

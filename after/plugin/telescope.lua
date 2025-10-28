@@ -175,6 +175,7 @@ telescope.setup({
                 -- ##FIX(W38 Wed, 17 at 10:00) bro just use escape or double capslock tap or capslock go to nomal mode and q. in normal mode it works
                 -- ["A-q"] = actions.close,
 
+                ["<A-a>"] = require('telescope.actions').close,
 
                 ["<C-u>"] = function(prompt_bufnr)
                     -- This function clears the entire prompt buffer
@@ -191,10 +192,10 @@ telescope.setup({
                 ["<C-f>"] = actions.preview_scrolling_down,
                 ["<A-k>"] = actions.preview_scrolling_up,
                 ["<A-j>"] = actions.preview_scrolling_down,
-                ["<C-up>"] = actions.preview_scrolling_up,
                 ["<A-S-j>"] = actions.preview_scrolling_down,
                 ["<A-S-k>"] = actions.preview_scrolling_up,
-                ["<C-down>"] = actions.preview_scrolling_down,
+                ["<C-up>"] = actions.cycle_history_prev,
+                ["<C-down>"] = actions.cycle_history_next,
                 ["<A-p>"] = action_layout.toggle_preview,
                 --# this is so good so you can look for some live_grep and then fuzzy find over those files
                 --# so it's like search for something in general and then fuzzy find over those search results
@@ -203,12 +204,13 @@ telescope.setup({
                 ["<A-q>"] = actions.toggle_all, -- "A" for "All"
                 --# THis is just some ai bs I like the idea for sure 
                 -- ["<A-P>"] = require('telescope.actions').preview_fullscreen,
-                ["<C-l>"] = actions.cycle_previewers_next,
                 -- ["C-w"] = resize_preview("increase"),
                 -- ["C-e"] = resize_preview("decrease"),
                 ["<M-l>"] = action_layout.cycle_layout_next,
                 ["<M-h>"] = action_layout.cycle_layout_prev,
+                --# This doesn't even work mate 
                 ["<C-a>"] = actions.cycle_previewers_prev,
+                ["<C-l>"] = actions.cycle_previewers_next,
                 --# this only works on newer versions of telescope 
                 ["<C-e>"] = actions.preview_scrolling_left,
                 ["<C-s>"] = actions.preview_scrolling_right,
@@ -234,10 +236,10 @@ telescope.setup({
                 ["<A-k>"] = actions.preview_scrolling_up,
                 ["<A-j>"] = actions.preview_scrolling_down,
                 ["<Up>"] = actions.cycle_history_prev,
-                ["<C-up>"] = actions.preview_scrolling_up,
-                ["<C-down>"] = actions.preview_scrolling_down,
                 ["<C-Space>"] = actions.to_fuzzy_refine,
                 ["<Down>"] = actions.cycle_history_next,
+                ["<C-up>"] = actions.cycle_history_prev,
+                ["<C-down>"] = actions.cycle_history_next,
                 ["<C-left>"] = actions.preview_scrolling_left,
                 ["<C-right>"] = actions.preview_scrolling_right,
                 ["<A-q>"] = actions.toggle_all, -- "A" for "All"
@@ -497,7 +499,7 @@ keymap('n', '<leader>tr', builtin.resume, { desc = 'Telescope Resume' })
 -- I'll try this out 
 keymap('n', '<leader>t/', builtin.resume, { desc = 'Telescope Resume' })
 keymap('n', '<A-p>', builtin.resume, { desc = 'Telescope Resume' })
-
+keymap('n', '<leader>;', builtin.resume, { desc = 'Telescope Resume' })
 
 keymap('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope Find helper' })
 keymap('n', '<leader>f?', builtin.builtin, { desc = 'List Telescope built-ins' })

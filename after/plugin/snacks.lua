@@ -22,18 +22,16 @@ else
     vim.print = _G.dd
 end
 
---#OK this is the best
--- ===================================================================
--- 2. Create On-the-Fly Toggle Mappings
--- ===================================================================
--- These let you turn common editor settings on and off with notifications.
+
+
 
 map({ "n", "t" }, "g]", function() Snacks.words.jump(vim.v.count1) end, { desc = "Snacks: Next Reference" })
 map({ "n", "t" }, "g[", function() Snacks.words.jump(-vim.v.count1) end, { desc = "Snacks: Prev Reference" })
 
 
 -- # this is so nice change from relative number to number really like it 
-Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ul")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>ur")
+Snacks.toggle.option("number", { name = "Relative Number" }):map("<leader>un")
 
 --# I already have  the <leader>w but I guess naming it <leader>uw is probably better 
 Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
@@ -114,5 +112,5 @@ map("n", "<leader>GGs", function() Snacks.picker.git_status() end, { desc = "Sna
 
 
 -- V V V ADD THIS NEW KEYMAP V V V
-map("n", "<leader>RN", function() Snacks.rename.rename_file() end, { desc = "Snacks: Rename File" })
+map("n", "<leader>fr", function() Snacks.rename.rename_file() end, { desc = "Snacks: Rename File" })
 -- ^ ^ ^ END OF THE NEW KEYMAP ^ ^ ^
