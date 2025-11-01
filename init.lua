@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'q!',
 })
 
-vim.o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20"
+-- vim.o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20"
 
 vim.keymap.set("n", "gl", vim.diagnostic.open_float)
 
@@ -131,11 +131,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#98C379' })
         vim.api.nvim_set_hl(0, 'SnacksStatusColumnGitsignsAdd', { fg = '#98C379' })
 
-
         -- Option 3: Brighter Accent Background
         -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#284B63", bold = true})
         -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#6B553D", bold = true})
-        vim.api.nvim_set_hl(0, "MatchParen", {bg = "#ff5555", bold = true})
+        -- vim.api.nvim_set_hl(0, "MatchParen", {bg = "#ff5555", bold = true})
 
         -- Option 3: Brighter Accent Background
         -- vim.api.nvim_set_hl(0, "MatchParen", { bg = "#D14D21" })

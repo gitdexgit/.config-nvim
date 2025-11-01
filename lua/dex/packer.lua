@@ -28,6 +28,12 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'ThePrimeagen/vim-be-good'
+    }
+
+
+
+    use {
         "debugloop/telescope-undo.nvim",
         requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     }
@@ -282,7 +288,7 @@ use {
                                     --     },
                                     -- },
                                     -- Visuals
-                                    indent = { enabled = true },
+                                    -- indent = { enabled = true },
                                     statuscolumn = { enabled = true },
                                     dim = { enabled = true },
                                     words = { enabled = true },

@@ -1,5 +1,8 @@
 -- /home/dex/.config/nvim/lua/dex/set.lua
 
+
+-- Set a blinking block cursor for all modes
+
 vim.opt.guicursor = ""
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -9,6 +12,7 @@ vim.g.maplocalleader = " "
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4

@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/dex/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?/init.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/dex/.cache/nvim/packer_hererocks/2.1.1753364724/lib/lua/5.1/?.so"
+local package_path_str = "/home/dex/.cache/nvim/packer_hererocks/2.1.1761623958/share/lua/5.1/?.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1761623958/share/lua/5.1/?/init.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1761623958/lib/luarocks/rocks-5.1/?.lua;/home/dex/.cache/nvim/packer_hererocks/2.1.1761623958/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/dex/.cache/nvim/packer_hererocks/2.1.1761623958/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -125,7 +125,7 @@ _G.packer_plugins = {
     url = "https://github.com/rafamadriz/friendly-snippets"
   },
   ["gitsigns.nvim"] = {
-    config = { "\27LJ\2\nû\1\0\1\b\0\n\0\r6\1\0\0009\1\1\0019\1\2\1'\3\3\0'\4\4\0006\5\5\0'\a\6\0B\5\2\0029\5\a\0055\6\b\0=\0\t\6B\1\5\1K\0\1\0\vbuffer\1\0\2\vbuffer\0\tdesc\22Git: Preview Hunk\17preview_hunk\rgitsigns\frequire\15<leader>gp\6n\bset\vkeymap\bvimÅ\1\1\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0003\3\4\0=\3\5\2B\0\2\1K\0\1\0\14on_attach\0\1\0\5\15signcolumn\2\vlinehl\1\14word_diff\1\nnumhl\1\14on_attach\0\nsetup\rgitsigns\frequire\0" },
+    config = { "\27LJ\2\nû\1\0\1\b\0\n\0\r6\1\0\0009\1\1\0019\1\2\1'\3\3\0'\4\4\0006\5\5\0'\a\6\0B\5\2\0029\5\a\0055\6\b\0=\0\t\6B\1\5\1K\0\1\0\vbuffer\1\0\2\vbuffer\0\tdesc\22Git: Preview Hunk\17preview_hunk\rgitsigns\frequire\15<leader>gp\6n\bset\vkeymap\bvimÅ\1\1\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0003\3\4\0=\3\5\2B\0\2\1K\0\1\0\14on_attach\0\1\0\5\vlinehl\1\14on_attach\0\nnumhl\1\15signcolumn\2\14word_diff\1\nsetup\rgitsigns\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
@@ -136,7 +136,7 @@ _G.packer_plugins = {
     url = "https://github.com/ThePrimeagen/harpoon"
   },
   ["lazydev.nvim"] = {
-    config = { "\27LJ\2\nô\1\0\0\6\0\b\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0004\3\3\0005\4\3\0005\5\4\0=\5\5\4>\4\1\3=\3\a\2B\0\2\1K\0\1\0\flibrary\1\0\1\flibrary\0\nwords\1\2\0\0\fvim%.uv\1\0\2\tpath\23${3rd}/luv/library\nwords\0\nsetup\flazydev\frequire\0" },
+    config = { "\27LJ\2\nô\1\0\0\6\0\b\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0004\3\3\0005\4\3\0005\5\4\0=\5\5\4>\4\1\3=\3\a\2B\0\2\1K\0\1\0\flibrary\1\0\1\flibrary\0\nwords\1\2\0\0\fvim%.uv\1\0\2\nwords\0\tpath\23${3rd}/luv/library\nsetup\flazydev\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -164,7 +164,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
   neovim = {
-    config = { "\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0" },
+    config = { "\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\vstyles\0\23disable_background\2\nsetup\14rose-pine\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/neovim",
     url = "https://github.com/rose-pine/neovim"
@@ -253,7 +253,7 @@ _G.packer_plugins = {
     url = "https://github.com/ahmedkhalf/project.nvim"
   },
   ["snacks.nvim"] = {
-    config = { "\27LJ\2\nÌ\3\0\0\4\0\28\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\0025\3\26\0=\3\27\2B\0\2\1K\0\1\0\ninput\1\0\1\fenabled\2\fscratch\1\0\1\fenabled\2\flazygit\1\0\1\fenabled\2\14gitbrowse\1\0\1\fenabled\2\14bufdelete\1\0\1\fenabled\2\vrename\1\0\1\fenabled\2\fbigfile\1\0\1\fenabled\2\bzen\1\0\1\fenabled\2\nwords\1\0\1\fenabled\2\bdim\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\vindent\1\0\f\bdim\0\bzen\0\vindent\0\14gitbrowse\0\fbigfile\0\fscratch\0\flazygit\0\17statuscolumn\0\ninput\0\14bufdelete\0\vrename\0\nwords\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
+    config = { "\27LJ\2\n \3\0\0\4\0\26\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\2B\0\2\1K\0\1\0\ninput\1\0\1\fenabled\2\fscratch\1\0\1\fenabled\2\flazygit\1\0\1\fenabled\2\14gitbrowse\1\0\1\fenabled\2\14bufdelete\1\0\1\fenabled\2\vrename\1\0\1\fenabled\2\fbigfile\1\0\1\fenabled\2\bzen\1\0\1\fenabled\2\nwords\1\0\1\fenabled\2\bdim\1\0\1\fenabled\2\17statuscolumn\1\0\v\fbigfile\0\14bufdelete\0\14gitbrowse\0\flazygit\0\fscratch\0\ninput\0\vrename\0\17statuscolumn\0\bdim\0\nwords\0\bzen\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0" },
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/snacks.nvim",
     url = "https://github.com/folke/snacks.nvim"
@@ -293,6 +293,11 @@ _G.packer_plugins = {
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-be-good"] = {
+    loaded = true,
+    path = "/home/dex/.local/share/nvim/site/pack/packer/start/vim-be-good",
+    url = "https://github.com/ThePrimeagen/vim-be-good"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/dex/.local/share/nvim/site/pack/packer/start/vim-fugitive",
@@ -316,21 +321,21 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: snacks.nvim
-time([[Config for snacks.nvim]], true)
-try_loadstring("\27LJ\2\nÌ\3\0\0\4\0\28\0\0316\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\0025\3\26\0=\3\27\2B\0\2\1K\0\1\0\ninput\1\0\1\fenabled\2\fscratch\1\0\1\fenabled\2\flazygit\1\0\1\fenabled\2\14gitbrowse\1\0\1\fenabled\2\14bufdelete\1\0\1\fenabled\2\vrename\1\0\1\fenabled\2\fbigfile\1\0\1\fenabled\2\bzen\1\0\1\fenabled\2\nwords\1\0\1\fenabled\2\bdim\1\0\1\fenabled\2\17statuscolumn\1\0\1\fenabled\2\vindent\1\0\f\bdim\0\bzen\0\vindent\0\14gitbrowse\0\fbigfile\0\fscratch\0\flazygit\0\17statuscolumn\0\ninput\0\14bufdelete\0\vrename\0\nwords\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0", "config", "snacks.nvim")
-time([[Config for snacks.nvim]], false)
 -- Config for: nvim-window-picker
 time([[Config for nvim-window-picker]], true)
 try_loadstring("\27LJ\2\n÷\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\a\0005\4\5\0005\5\4\0=\5\6\4=\4\b\3=\3\t\2B\0\2\1K\0\1\0\17filter_rules\abo\1\0\1\abo\0\rfiletype\1\0\1\rfiletype\0\1\5\0\0\rNvimTree\vnotify\17snacks_notif\vpacker\1\0\2\17filter_rules\0\thint\24floating-big-letter\nsetup\18window-picker\frequire\0", "config", "nvim-window-picker")
 time([[Config for nvim-window-picker]], false)
+-- Config for: snacks.nvim
+time([[Config for snacks.nvim]], true)
+try_loadstring("\27LJ\2\n \3\0\0\4\0\26\0\0296\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0025\3\n\0=\3\v\0025\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0=\3\17\0025\3\18\0=\3\19\0025\3\20\0=\3\21\0025\3\22\0=\3\23\0025\3\24\0=\3\25\2B\0\2\1K\0\1\0\ninput\1\0\1\fenabled\2\fscratch\1\0\1\fenabled\2\flazygit\1\0\1\fenabled\2\14gitbrowse\1\0\1\fenabled\2\14bufdelete\1\0\1\fenabled\2\vrename\1\0\1\fenabled\2\fbigfile\1\0\1\fenabled\2\bzen\1\0\1\fenabled\2\nwords\1\0\1\fenabled\2\bdim\1\0\1\fenabled\2\17statuscolumn\1\0\v\fbigfile\0\14bufdelete\0\14gitbrowse\0\flazygit\0\fscratch\0\ninput\0\vrename\0\17statuscolumn\0\bdim\0\nwords\0\bzen\0\1\0\1\fenabled\2\nsetup\vsnacks\frequire\0", "config", "snacks.nvim")
+time([[Config for snacks.nvim]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
-try_loadstring("\27LJ\2\nû\1\0\1\b\0\n\0\r6\1\0\0009\1\1\0019\1\2\1'\3\3\0'\4\4\0006\5\5\0'\a\6\0B\5\2\0029\5\a\0055\6\b\0=\0\t\6B\1\5\1K\0\1\0\vbuffer\1\0\2\vbuffer\0\tdesc\22Git: Preview Hunk\17preview_hunk\rgitsigns\frequire\15<leader>gp\6n\bset\vkeymap\bvimÅ\1\1\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0003\3\4\0=\3\5\2B\0\2\1K\0\1\0\14on_attach\0\1\0\5\15signcolumn\2\vlinehl\1\14word_diff\1\nnumhl\1\14on_attach\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+try_loadstring("\27LJ\2\nû\1\0\1\b\0\n\0\r6\1\0\0009\1\1\0019\1\2\1'\3\3\0'\4\4\0006\5\5\0'\a\6\0B\5\2\0029\5\a\0055\6\b\0=\0\t\6B\1\5\1K\0\1\0\vbuffer\1\0\2\vbuffer\0\tdesc\22Git: Preview Hunk\17preview_hunk\rgitsigns\frequire\15<leader>gp\6n\bset\vkeymap\bvimÅ\1\1\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0003\3\4\0=\3\5\2B\0\2\1K\0\1\0\14on_attach\0\1\0\5\vlinehl\1\14on_attach\0\nnumhl\1\15signcolumn\2\14word_diff\1\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
 time([[Config for gitsigns.nvim]], false)
 -- Config for: neovim
 time([[Config for neovim]], true)
-try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\23disable_background\2\vstyles\0\nsetup\14rose-pine\frequire\0", "config", "neovim")
+try_loadstring("\27LJ\2\nt\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\vstyles\1\0\1\vitalic\1\1\0\2\vstyles\0\23disable_background\2\nsetup\14rose-pine\frequire\0", "config", "neovim")
 time([[Config for neovim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
